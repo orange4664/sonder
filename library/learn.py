@@ -18,15 +18,18 @@ Two layers, two jobs:
   2) `exemplars` — sentence memory. When the author KEEPS a sentence as-is, or
      types their own wording in "Other", that exact sentence is stored as a
      canonical example of their voice. `nearest()` retrieves the most similar
-     stored sentences by character 3-gram TF-IDF cosine — a pure-Python vector
-     matcher, no training, no heavy deps. The rewrites are then steered toward
+     stored sentences by cosine similarity, using one of three swappable backends
+     (see # Similarity backends below). By default it's a zero-dependency
+     character 3-gram TF-IDF matcher; optionally it uses sklearn TF-IDF or a
+     `sentence-transformers` embedding model. The rewrites are then steered toward
      the author's own clean sentences, not toward a generic editor.
 
 The clear distinction from a "tiny neural network": this is the same mechanism
 at the sparse, explicit end of the spectrum. It generalizes by token overlap
 (character n-grams) instead of by learned embeddings; the two are the coarse
-and fine ends of memory. This layer is deliberately replaceable — a caller can
-swap `charsim` (below) for a sentence-transformers model without changing the API.
+and fine ends of memory. Turning on the `embed` backend swaps in a pretrained
+(published, not trained-on-your-text) embedding model — a quality upgrade, not a
+new training step, and entirely optional.
 
 Run via CLI. Every command talks to the same SQLite database (preference.db).
 Usage:
@@ -38,6 +41,7 @@ Usage:
   python3 learn.py list   <db> [kind]                       # view stored sentences
   python3 learn.py prune  <db> [minpicks] [minweight]
   python3 learn.py reshow <db>
+  python3 learn.py backend <db> [ngram|sklearn|embed]       # set/pick similarity backend
 """
 
 import json
@@ -61,6 +65,109 @@ MAX_EXEMPLARS = 500            # cap on stored sentences (per paper)
 KIND_AUTHOR = "author"   # author's own clean sentence they accepted / wrote
 KIND_KEPT = "kept"       # a sentence I proposed and the author kept alive
 KIND_REWRITE = "rewrite" # a sentence I rewrote and the author accepted
+
+# --- Similarity backends ----------------------------------------------------
+# Three swappable matchers for `nearest`. Default `ngram` is zero-dependency.
+# `sklearn` and `embed` are OPT-IN (see `backend` command); they are lazily
+# imported only when selected, so the default path never needs them.
+BACKEND_FILE = ".similarity_backend"   # a sidecar file next to the db, per workspace
+DEFAULT_BACKEND = "ngram"
+EMBED_MODEL = "all-MiniLM-L6-v2"       # small, robust, multilingual-ish; 384-dim
+
+
+def _backend_of(db):
+    """Read the selected backend for this workspace, or the default."""
+    path = os.path.join(os.path.dirname(db) or ".", BACKEND_FILE)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read().strip() or DEFAULT_BACKEND
+    except FileNotFoundError:
+        return DEFAULT_BACKEND
+
+
+def _set_backend(db, backend):
+    if backend not in ("ngram", "sklearn", "embed"):
+        raise ValueError("backend must be one of: ngram | sklearn | embed")
+    path = os.path.join(os.path.dirname(db) or ".", BACKEND_FILE)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(backend)
+    return backend
+
+
+# --- Matchers ---------------------------------------------------------------
+def _matcher_norm(text):
+    """Normalized text for both TF-IDF matchers."""
+    return " ".join(re.findall(r"[A-Za-z0-9]+", text.lower()))
+
+
+def _ngram_vec(text, df, idf):
+    """Determine character 3-gram TF-IDF unit vector. Pure Python (default)."""
+    t = _matcher_norm(text)
+    if not t:
+        return {}
+    pad = "  "
+    t = pad + t + pad
+    q = Counter(t[i:i + 3] for i in range(len(t) - 2) if t[i:i + 3].strip())
+    if not q:
+        return {}
+    weighted = {g: q[g] * idf.get(g, 0.0) for g in q}
+    norm = math.sqrt(sum(v * v for v in weighted.values())) or 1.0
+    return {g: v / norm for g, v in weighted.items()}
+
+
+def _sklearn_vecs(texts):
+    """TF-IDF vectors via scikit-learn (char n-grams). Lazy import; only used
+    when the `sklearn` backend is selected. Gives a clear actionable error if
+    sklearn is missing instead of a raw traceback."""
+    try:
+        from sklearn.feature_extraction.text import TfidfVectorizer  # noqa: WPS433
+    except ImportError as e:
+        raise SystemExit(
+            "backend 'sklearn' needs `pip install scikit-learn`. Install it, or set "
+            "backend back to 'ngram' with: python3 learn.py backend <db> ngram"
+        ) from e
+    vec = TfidfVectorizer(
+        analyzer="char",
+        ngram_range=(3, 3),
+        lowercase=True,
+        norm="l2",
+        sublinear_tf=True,
+    )
+    return vec.fit_transform(texts)
+
+
+def _embed_vecs(texts):
+    """Sentence embeddings via a pretrained sentence-transformers model.
+    Lazy import + first-time model download; only used with `embed` backend."""
+    try:
+        from sentence_transformers import SentenceTransformer  # noqa: WPS433
+    except ImportError as e:
+        raise SystemExit(
+            "backend 'embed' needs `pip install sentence-transformers`. "
+            "Install it, or set backend back to 'ngram' with: "
+            "python3 learn.py backend <db> ngram"
+        ) from e
+    model = SentenceTransformer(EMBED_MODEL)
+    return model.encode(texts, normalize_embeddings=True)
+
+
+def _vectors_for(texts, backend):
+    """Return (vectors, is_sparse) for a list of texts under the given backend.
+    Open entries are 2D matrices; closed entries are row sparse matrices."""
+    if backend == "embed":
+        return _embed_vecs(texts), False
+    if backend == "sklearn":
+        return _sklearn_vecs(texts), True
+    return texts, None   # ngram: raw text, handled per-pair below
+
+
+def _cosine_sparse(a, b):
+    """Cosine between two rows of a sparse matrix."""
+    return float((a @ b.T).toarray()[0, 0])
+
+
+def _cosine_dense(a, b):
+    return float(sum(x * y for x, y in zip(a, b)))
 
 
 def _clamp(w):
@@ -203,36 +310,12 @@ def bias(db, section, role, options):
 
 
 # --- layer 2: exemplar (sentence) memory -----------------------------------
-_WORD_RE = re.compile(r"[A-Za-z0-9]+")
-
-
-def _normalize(text):
-    """Lowercase, fold whitespace, keep letters/digits/spaces. Enough to make
-    character 3-grams meaningful across 'We measured' vs 'we measure'."""
-    return " ".join(_WORD_RE.findall(text.lower()))
-
-
-def _ngrams(text, n=3):
-    """Character n-grams of a normalized string, padded at both edges."""
-    t = _normalize(text)
-    if len(t) < 1:
-        return Counter()
-    pad = " " * (n - 1)
-    t = pad + t + pad
-    return Counter(t[i:i + n] for i in range(len(t) - n + 1) if t[i:i + n].strip())
-
-
-def _tfidf_cosine(text, vocab_df, vocab_idf):
-    q = _ngrams(text)
-    if not q:
-        return {}
-    weighted = {g: q[g] * vocab_idf.get(g, 0.0) for g in q}
-    norm = math.sqrt(sum(v * v for v in weighted.values())) or 1.0
-    return {g: v / norm for g, v in weighted.items()}
-
-
 def _store_exemplar(conn, kind, text):
-    ngram = json.dumps(dict(_ngrams(text)), ensure_ascii=False, sort_keys=True)
+    ngram = json.dumps(dict(Counter(
+        (lambda t: [t[i:i + 3] for i in range(len(t) - 2) if t[i:i + 3].strip()])(
+            _matcher_norm(text)
+        )
+    )), ensure_ascii=False, sort_keys=True)
     now = _now_iso()
     conn.execute(
         "INSERT OR REPLACE INTO exemplars(kind,text,ngram,created,last_at,rewards) "
@@ -251,9 +334,11 @@ def store(db, kind, text):
 
 def nearest(db, text, n=5, min_sim=EXEMPLAR_MIN_SIM):
     """Return the `n` stored sentences most similar to `text` (decayed, so stale
-    sentences count less). Built as pure-Python character 3-gram TF-IDF cosine —
-    no training, no external deps. Swap in a sentence-transformers model here
-    without changing the callers."""
+    sentences count less). The similarity matcher is chosen per-workspace by the
+    backend flag: `ngram` (default, zero-dependency character 3-gram TF-IDF),
+    `sklearn` (scikit-learn char TF-IDF), or `embed` (pretrained sentence
+    embeddings). The backend is read from `backend <db>`; the callers don't
+    need to know which one is active."""
     conn = _open(db)
     rows = conn.execute(
         "SELECT id, kind, text, ngram, last_at, rewards FROM exemplars"
@@ -263,20 +348,38 @@ def nearest(db, text, n=5, min_sim=EXEMPLAR_MIN_SIM):
     if not rows:
         return []
 
-    # IDF over the corpus.
-    df = Counter()
-    for _, _, _, ng, _, _ in rows:
-        for g in json.loads(ng):
-            df[g] += 1
-    n_docs = len(rows)
-    idf = {g: math.log((n_docs + 1) / (c + 1)) + 1.0 for g, c in df.items()}
+    backend = _backend_of(db)
+    texts = [t for (_, _, t, _, _, _) in rows]
 
-    qvec = _tfidf_cosine(text, df, idf)
+    sim_by_id = {}
+
+    if backend == "embed":
+        vecs, _ = _vectors_for([text] + texts, backend)   # dense, L2-normalized
+        q = vecs[0]
+        for (id_, _, _, _, _, _), vec in zip(rows, vecs[1:]):
+            sim_by_id[id_] = _cosine_dense(q, vec)
+
+    elif backend == "sklearn":
+        mat, _ = _vectors_for([text] + texts, backend)    # sparse char TF-IDF
+        q = mat[0]
+        for (id_, _, _, _, _, _), i in zip(rows, range(1, mat.shape[0])):
+            sim_by_id[id_] = _cosine_sparse(q, mat[i])
+
+    else:  # ngram — zero-dependency, run per-pair with IDF over the corpus
+        df = Counter()
+        for _, _, _, ng, _, _ in rows:
+            for g in json.loads(ng):
+                df[g] += 1
+        n_docs = len(rows)
+        idf = {g: math.log((n_docs + 1) / (c + 1)) + 1.0 for g, c in df.items()}
+        qvec = _ngram_vec(text, df, idf)
+        for id_, _, t, _, _, _ in rows:
+            dvec = _ngram_vec(t, df, idf)
+            sim_by_id[id_] = sum(qvec.get(g, 0.0) * dvec.get(g, 0.0) for g in qvec)
+
     scored = []
-    for id_, kind, t, ng, last_at, rewards in rows:
-        dvec = _tfidf_cosine(t, df, idf)
-        # Dot product of unit vectors = cosine.
-        sim = sum(qvec.get(g, 0.0) * dvec.get(g, 0.0) for g in qvec)
+    for (id_, kind, t, ng, last_at, rewards) in rows:
+        sim = sim_by_id.get(id_, 0.0)
         if sim < min_sim:
             continue
         scored.append({
@@ -343,6 +446,14 @@ def reshow(db):
     ))
 
 
+def get_backend(db):
+    return _backend_of(db)
+
+
+def set_backend(db, backend):
+    return _set_backend(db, backend)
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -374,6 +485,10 @@ def main():
         elif cmd == "list":
             k = sys.argv[3] if len(sys.argv) > 3 else None
             sys.stdout.write(json.dumps(list_exemplars(sys.argv[2], k), ensure_ascii=False))
+        elif cmd == "backend":
+            if len(sys.argv) > 3:
+                set_backend(sys.argv[2], sys.argv[3])
+            print(get_backend(sys.argv[2]))
         elif cmd == "prune":
             prune(sys.argv[2],
                   int(sys.argv[3]) if len(sys.argv) > 3 else 2,

@@ -41,7 +41,7 @@ It creates a `<paper-stem>-revision/` sibling directory holding `original/` (unt
 - `references/segmentation.md` — splitting prose into sentence IDs without breaking math, citations, or environments (used *after* the blueprint is finalized).
 - `references/templates.md` — the blueprint, revision-log, and style-profile formats.
 - `references/preference-learning.md` — how feedback is learned soft/weighted/context-scoped, to avoid over-absorption.
-- `library/learn.py` — the ported preference-learning engine (SQLite-backed), two layers: `record`/`signal`/`bias`/`global`/`prune` for weighted choices (with age-decay), and `store`/`nearest`/`list` for CBR-style sentence memory.
+- `library/learn.py` — the ported preference-learning engine (SQLite-backed), two layers: `record`/`signal`/`bias`/`global`/`prune` for weighted choices (with age-decay), and `store`/`nearest`/`list` for CBR-style sentence memory. `nearest` has three swappable backends (`backend` command): `ngram` (default, zero-dependency char 3-gram TF-IDF), `sklearn` (scikit-learn char TF-IDF), or `embed` (pretrained sentence-embedding model). The optional ones lazy-import on first use and print an actionable error if the dependency is missing.
 - `memory/style-profile.md` — cross-paper (`global`) preferences, written only when the author confirms a rule as lasting.
 
 ## Adaptation notes (relative to the upstream skill)
