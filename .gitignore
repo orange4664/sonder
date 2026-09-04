@@ -1,3 +1,4 @@
 __pycache__/
 *.pyc
 preference.db
+tests/demo-paper-revision/

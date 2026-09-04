@@ -410,23 +410,28 @@ def list_exemplars(db, kind=None):
 
 
 # --- upkeep -----------------------------------------------------------------
-def prune(db, min_picks=2, min_weight=MIN_WEIGHT):
+def prune(db, min_picks=0, min_weight=MIN_WEIGHT, stale_days=30):
     """Drop stale preference/example entries — the memory 'forgets' the things
-    the author stopped reinforcing rather than holding them forever. This pairs
-    with the decay applied at read time."""
+    the author stopped reinforcing rather than holding them forever.
+
+    The primary test is STALENESS, not pick count: an entry is pruned only if it
+    has gone `stale_days` without being exercised (or was never exercised and is
+    now old). This keeps a fresh, single confirmation alive — a one-off 'keep
+    this' should survive a paragraph pause, not be deleted the moment it's written.
+    The decay at read time already lowers a long-unused preference; this removes it
+    once it's genuinely dry."""
     conn = _open(db)
-    # Purge prefs whose decayed weight has fallen below the floor. Only drop an
-    # option that the author never really used (low picks) AND lost its weight
-    # (low decayed weight). An option the author used but has since been nudged
-    # down stays available — a downweight is not a deletion.
-    rows = conn.execute("SELECT context, opt, weight, picks, last_at FROM prefs "
-                        "WHERE context!='__GLOBAL__'").fetchall()
-    for ctx, opt, w, p, last in rows:
-        if p < min_picks and int(w * _decay(last)) < min_weight:
-            conn.execute("DELETE FROM prefs WHERE context=? AND opt=?", (ctx, opt))
-    # Drop exemplars that have been re-encoded as stale (few rewards, old).
+    # Purge preferences that have been idle past stale_days and have decayed low.
     conn.execute(
-        "DELETE FROM exemplars WHERE rewards<2 AND last_at<datetime('now','-30 days')"
+        "DELETE FROM prefs WHERE context!='__GLOBAL__' AND "
+        "((last_at IS NULL OR last_at < datetime('now', ?) ) AND picks <= ?)",
+        (f"-{int(stale_days)} days", min_picks),
+    )
+    # Drop exemplars that are old and were essentially never reinforced.
+    conn.execute(
+        "DELETE FROM exemplars WHERE rewards< ? AND "
+        "last_at < datetime('now', ?)",
+        (2, f"-{int(stale_days)} days"),
     )
     conn.commit()
     conn.close()
