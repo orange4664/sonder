@@ -67,7 +67,8 @@ Fixing one line at a time is necessary but not sufficient. Two defects only surf
 │   └── <paper filename>
 ├── blueprint.md         # the agreed shape from Phase 2
 ├── revision-log.md      # every sentence: id, status, original, chosen, fixes
-└── style-profile.md     # model of the author's voice for THIS paper
+├── style-profile.md     # model of the author's voice for THIS paper
+└── preference.db        # soft learning store (SQLite, from library/learn.py)
 ```
 
 Copy the source into both `original/` and `working/`. From here on, every Edit targets `working/` only. The `original/` copy is the safety net and the basis for the final diff.
@@ -80,13 +81,9 @@ Copy the source into both `original/` and `working/`. From here on, every Edit t
 
 Do not start editing, and do not start the blueprint, before a full read. You cannot judge a paragraph's main thread without its surrounding argument, and you need the author's baseline voice before you change a word. Read `working/` end to end first.
 
-While reading, fill in `style-profile.md` from the **existing prose** — but treat the result as a **hypothesis, not a rule set**. These are guesses about the author's voice from their own writing; real preferences only become confirmed when the author says so or when repeated choices across many sentences show a pattern. An entry the author never actually confirmed is weak evidence and must not block an otherwise good rewrite. Mark each entry with its **scope** so the difference is visible:
+While reading, fill in `style-profile.md` from the **existing prose** — but treat the result as a **hypothesis, not a rule set**. These are guesses about the author's voice from their own writing; a real preference only becomes weighted when the author actually confirms or rejects it during revision. An entry the author never confirmed is weak evidence and must not block an otherwise good rewrite. What is written here will be overlapped with the author's actual choices, which are captured in `preference.db` (see [references/preference-learning.md](references/preference-learning.md)). A preference is a **gentle weight** the author's choices have put on a rewrite option in a given context — not a rule that forbids anything. For the initial read, note the voice, but keep it tentatively marked as hypothesis rather than as settled preference.
 
-- **global** — a preference the author confirms for all their papers (e.g. "always use 'we', never passive"). Written to the cross-paper memory; stays.
-- **local** — a preference that holds for *this* paper only (e.g. "this venue wants the passive"). Lives in the workspace profile; dies with the paper.
-- **sentence** — a one-off for this exact instance. Does not enter the profile at all.
-
-Follow [references/preference-learning.md](references/preference-learning.md) for how each scope is set, confirmed, and pruned.
+The cross-paper threshold: a preference becomes lasting **only** when the author states it explicitly as a standing rule ("I always use 'we' in every paper"). That is the single `global` behavior, and it must be earned by an explicit statement, never inferred. Everything else is learned per-context from the author's choices during revision, and dies with this paper.
 
 Also record structure **notes**, as raw material for the blueprint in Phase 2. Do not act on them yet — just note, in `revision-log.md` under a **Structure notes** heading: each paragraph's topic sentence (or "buried"/"missing"), any transition between paragraphs that drops the reader, and a running **first-use map** of key terms, symbols, and acronyms — where each is introduced and whether it's used anywhere earlier. This is the seed you'll bring to the author in Phase 2.
 
@@ -121,7 +118,7 @@ For each paragraph:
 
 **1. Read it as a unit before its sentences.** Put the whole paragraph in view, not just the next line. Check its single claim: does the opening sentence announce it? Does the paragraph earn it? Does it hand off to the next? This is where the blueprint's target for this paragraph gets tested.
 
-**2. Loop over its sentences.** For each unreviewed sentence in order:
+**2. Loop over its sentences.** For each unreviewed sentence in order. Start by fixing the two context keys for that sentence — the **section** (abstract / intro / methods / results / discussion / conclusion, from where it sits in the blueprint) and the **role** (topic / support / transition / conclusion / detail / hedge, from its job in the paragraph). These are the `context_key` for the preference database, exactly as the input method keys the learning by the text before a phrase.
 
 **a. Show it in context.** Display the previous sentence (dimmed/as context), the current sentence, and the next sentence. Context prevents you from "fixing" a sentence in a way that breaks the flow into the next claim.
 
@@ -133,7 +130,7 @@ For each paragraph:
 - **Medium** — a genuine rewrite of the sentence for clarity and rhythm.
 - **Bold** — rethink the sentence; may merge with a neighbor or recast the framing.
 
-The spectrum is deliberate. The author's pick tells you how aggressive they want you to be, which sharpens the *next* sentence's options. Make the three meaningfully different — three near-identical rewrites waste the choice.
+Before proposing, query the preference database for this `(section, role)` context — `python3 library/learn.py bias <paper>-revision/preference.db <section> <role> Light Medium Bold "Keep original"`. The result tells you the current learned weight of each option here. **Lead with the higher-weighted option but never drop the lower ones.** The strongest recent version can be presented first, but all three plus "Keep original" stay available. Do not obey a rule — obey a soft bias that the author can override in one click. Aim for the three to still differ meaningfully; a near-identical set wastes the choice even if all are in the preferred band.
 
 **d. Let the author choose** with `AskUserQuestion`. Put the actual rewritten sentence in each option's `label` (so they read the real choice) and use the `description` for the edit level plus what it fixes, e.g. "Medium — drops passive voice and the filler opener." Add a fourth option, **"Keep original"**, whenever the original is defensible. The tool always appends an "Other" choice; that is the author's channel for their own wording or a steering instruction.
 
@@ -145,14 +142,17 @@ The spectrum is deliberate. The author's pick tells you how aggressive they want
 
 **f. Apply and log.** Edit `working/` to the chosen text (skip if Keep original). Append to `revision-log.md`: the sentence id, original, final text, which version they picked, and the fixes applied. This file is the record of what's been reviewed — keep it current so a resume is exact.
 
-**g. Learn — scoped, not blanket.** Update `style-profile.md` with what this choice revealed. Reference [references/preference-learning.md](references/preference-learning.md) for what signals to extract and how to let them shift your future options. Two rules that keep the learning from curdling into rule-bloat:
+**g. Learn — soft, weighted, context-scoped.** Fold the author's choice back into the preference database, the way an input method "gets to know you" (see [references/preference-learning.md](references/preference-learning.md)):
 
-- **Assign the scope on the way in.** Every entry records whether it is `local` (this paper) or `global` (all the author's papers, confirmed by them). Default to `local`. A one-off "don't do X here" must never become a blanket ban.
-- **Apply a confirmed kill/keep item only where its scope says it applies**, and when it applies to a new sentence, let the author see it happening — don't silence a word they'd happily accept in a different context. Un-applying a preference is cheap; noticing you've been silently enforcing a stale one is not.
+- **They picked a version** → `python3 library/learn.py record <paper>-revision/preference.db <section> <role> <version>` — a small upward weight on `(section::role, version)`. This is a nudge, not a rule.
+- **They rejected or steered away from a version** → `signal` the same tuple with a small downward weight. **This is a soft dip, never a ban.** The option stays available and can compete back up if the author later prefers it.
+- **They explicitly said "I always want this"** (a standing preference across papers) → only then `global` the option. This is the single thing that behaves like a rule, and it must be earned by an explicit statement, never inferred from one choice.
+
+The difference this makes: one "don't write it that way" no longer scans every later sentence as a prohibition. It just nudges that option down a little in this kind of context, until the author's repeated choices re-shape it. There is **no kill-list and no keep-list** anymore — those were the source of the over-absorption. Everything is a weighted preference that reorders options without removing them.
 
 **h. Advance** to the next unreviewed sentence in the paragraph.
 
-**3. Paragraph-level check.** When the paragraph's sentences are done, pause and do a short paragraph-level look — the view the sentence loop can't give you, judged against the blueprint: does this paragraph now deliver what the blueprint said it would? Do its lead and close serve that claim? Does any term land before it's defined, per your first-use map? If something's off (e.g. the paragraph's opener drifted from its purpose, or a needed transition to the next is missing), propose a concrete fix the way you offer sentence edits, let the author choose with `AskUserQuestion`, and log it.
+**3. Paragraph-level check.** When the paragraph's sentences are done, pause and do a short paragraph-level look — the view the sentence loop can't give you, judged against the blueprint: does this paragraph now deliver what the blueprint said it would? Do its lead and close serve that claim? Does any term land before it's defined, per your first-use map? If something's off (e.g. the paragraph's opener drifted from its purpose, or a needed transition to the next is missing), propose a concrete fix the way you offer sentence edits, let the author choose with `AskUserQuestion`, and log it. **Prune the preference store** here too: `python3 library/learn.py prune <paper>-revision/preference.db` — drop entries that haven't been exercised recently, so the learning stays a tight, current model rather than an accumulating archive.
 
 **4. Pause and confirm before moving on.** This is the deliberate segmentation point. Tell the author the paragraph is done: the paragraph's id and main thread, what changed, what stayed. Then ask whether to **continue on the next paragraph**, **pause and save** (the log and profile make resuming seamless), or **pause to change something** (a preference, the blueprint, or their own wording). Do not start the next paragraph until they say go. The author can stop anytime; nothing is lost.
 
@@ -160,7 +160,7 @@ Keep the rhythm humane. The paragraph pause is the natural break — use it, and
 
 ## Resuming
 
-When `<paper-stem>-revision/` already exists: read `revision-log.md` to find the last **completed paragraph** and the next one to start, read `style-profile.md` to restore what you learned about the author, and re-read the blueprint so you know what this paper is meant to be. Re-read `working/` for current context, then continue from the first unreviewed sentence of the next paragraph. Confirm the resume point with the author before diving back in.
+When `<paper-stem>-revision/` already exists: read `revision-log.md` to find the last **completed paragraph** and the next one to start, read `style-profile.md` to restore what you noted about the author, and **read `preference.db`** (`python3 library/learn.py reshow <paper>-revision/preference.db`) to restore what the author's choices actually taught. Re-read the blueprint so you know what this paper is meant to be, then re-read `working/` for current context. Continue from the first unreviewed sentence of the next paragraph. Confirm the resume point with the author before diving back in.
 
 ## Finishing
 

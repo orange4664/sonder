@@ -1,68 +1,86 @@
-# Learning the author's preferences
+# Learning the author's preferences (soft, IME-style)
 
-The point of going one paragraph at a time is not just to fix sentences — it's to build a model of how *this* author wants to write, so your suggestions converge on their taste. A well-run session needs heavy steering at sentence 3 and almost none by sentence 30. This file is about how to get there — and how to get there *without* turning a one-off "don't do that" into a rule that quietly governs every later sentence.
+The goal of going paragraph by paragraph is not to learn rules about how the
+author writes — it's to get *familiar* with how this author decides, so that
+your suggestions converge on their taste without ever turning one comment into
+a permanent rule. This file describes that mechanism. It is a direct port of
+how a self-learning input method "gets to know you" (Metasequoia IME
+`user_dictionary_journal.cpp`; corroborated by libpinyin and ZFVimIM).
 
-## Read both the choice and the rejection
+## The failure mode this replaces
 
-Every `AskUserQuestion` answer carries two signals:
+The older version of this skill learned **rules**: the author says "don't write
+it that way" once → it enters a kill-list → every later sentence is silently
+driven to avoid it, even where the author would happily accept it. That is
+over-absorption. A rule that applies everywhere, forever, from one observation.
 
-- **What they picked** tells you the edit aggressiveness and wording they want.
-- **What they passed over** tells you what to stop proposing. If they keep rejecting the Bold option, stop leading with bold rewrites. If they always take Light, they want a proofread, not a rewrite — shrink your edit distance across the board.
+The IME does the opposite. It never bans a word; it just raises the one you
+keep choosing, *in that context*, *after you've chosen it enough times*. A
+single "don't" is not a rule — it's one downvote.
 
-Their free-text steers ("shorter", "keep 'utilize', it's the field term", "don't merge sentences") are the strongest signal of all. But a signal is not a standing rule.
+## The three ideas, ported
 
-## The one rule that prevents over-absorption
+1. **Record the choice, not the rule.** Every decision is logged as a tuple of
+   `(context, option, weight)`. The option isn't "the author likes X" — it's
+   "in this kind of sentence, the author chose this rewrite." Nothing is
+   inferred beyond what was chosen.
 
-**Never let a single steer silently become a general rule.** Every piece of feedback arrives at a scope, and the scope is set deliberately, not by default. A "don't write it like that" spoken to one sentence must never become a ban that applies to a later sentence the author would happily accept. This is the failure mode this skill exists to stop, and it's why the profile carries a `scope` on every entry.
+2. **Change only after repetition, and only within the context.** Each
+   `(context, option)` has a pick count. Nothing shifts until it's picked enough
+   times (a small threshold). And the shift is scoped to the context that
+   produced it — the same option in a *different* role/section is a separate
+   entry and doesn't inherit the bump.
 
-### Three scopes, and how each is set
+3. **Nudge, never delete.** A preferred option rises; a rejected option dips.
+   Neither is removed. This is what keeps the author's voice from being
+   flattened — the full range of options stays on the table, just reordered.
 
-- **sentence** — applies to this instance only. It never enters the profile. Example: "drop the adverb here." You apply it, log it against the sentence, and move on. It is not a signal for future sentences.
-- **local** — applies to this **paper** only. Example: "keep 'utilize', it's the field term for this venue." You record it under the `local` scope. It dies with the paper; it is not carried into the author's next paper.
-- **global** — applies to all the author's papers. This is the rarest scope, and it is only ever set by **explicit confirmation**. Example: "I always use 'we', never passive, in every paper I write." It is written to the cross-paper memory and persists.
+## The context is the sentence's job, not its topic
 
-### The two ways a preference moves
+In the IME the context key is the preceding text (so "我吃" and "我是" learn
+separately). Here the analog is the sentence's **role in the argument** plus
+the **section** it lives in:
 
-1. **By explicit confirmation.** If the author says a preference is a standing one ("from now on always…", "I never do this in any paper…"), record it at the scope they stated. That's the only time `global` gets set.
-2. **By repeated pattern — but only locally.** If the author consistently picks the same option or repeats the same steer across many sentences within this paper, you may infer a `local` preference and record it. Do *not* upgrade it to `global` without asking.
+- **section:** abstract / intro / methods / results / discussion / conclusion
+- **role:** topic (opens the paragraph's claim) / support / transition /
+  conclusion / detail / hedge
 
-Everything else — most steers, most one-off choices — stays at `sentence` scope and is not learned as a rule at all.
-
-### When a steer might be a rule, ask once
-
-If a steer is broad enough that you suspect the author wants it everywhere ("shorter", "less formal"), do not silently generalize. Ask once, plainly: "Should I apply this to the rest of the paper, or just this sentence?" One short question at the moment of ambiguity beats enforcing a rule the author never intended.
-
-## What to track in style-profile.md
-
-Update after meaningful choices (not every single sentence — when something is revealed):
-
-- **Edit aggressiveness:** running sense of Light / Medium / Bold preference. Bias future option-spreads toward it.
-- **Voice markers:** "we" vs passive vs "the authors"; first vs third person. Match it.
-- **Vocabulary:** words they insist on keeping (field terms, pet phrases) and words they consistently cut. Maintain a keep-list and a kill-list — each entry scoped.
-- **Punctuation:** do they accept em-dashes, semicolons, parentheticals, or reject them? Honor it.
-- **Hedging:** do they want claims stated flatly or softened ("may suggest")? Field- and author-specific.
-- **Structural limits:** will they let you merge/split sentences, or do they want one-in-one-out edits?
+So "prefer mid-length topic sentences in the intro" is one tracked preference,
+while "prefer lighter edits in the discussion" is another. They don't bleed
+into each other, any more than "我吃" bleeds into "我是". If the author is
+writing a methods section, their taste there is learned separately from their
+taste in an abstract.
 
 ## How to fold it back in
 
-When generating the next sentence's versions:
+`library/learn.py` exposes the computation. When you're about to propose a
+sentence's rewrite options, call `bias` to get the current weight for each
+option in this context, and lead with the higher-weighted ones. Do **not**
+drop the low ones — the point is exactly that they stay available.
 
-1. Start from the author's learned aggressiveness, not a fixed Light/Medium/Bold ladder. If they've shown they want light edits, make all three options lighter and closer together. If they want bold, push harder.
-2. Apply a confirmed keep- or kill-item **only where its scope says it does**. A `local` kill-list applies within this paper; a `sentence` item doesn't apply anywhere else. And when a rule would actively silence a word, don't do it silently — let the author see the application. That's the moment they can say "not here."
-3. Keep the spectrum's *purpose* even as you recenter it: the three options should still differ enough to be a real choice, just within the band the author has shown they live in.
+- If the author picks an option, `record` it — a small upward `weight` on
+  `(context, option)`.
+- If the author rejects an option or steers away from it, `signal` it — a small
+  downward weight. This is **not** a ban. It competes back up if the author
+  later prefers it.
+- Only when the author says "I always want this" (explicitly, across papers) do
+  you write a `global` entry. That is the only thing that behaves like a rule,
+  and it must be earned by an explicit statement, never inferred.
+
+Trust the author at each step: when you apply a nudged preference, let them see
+it working. If they say "not here," that's a `signal`, not a new global rule.
 
 ## Prune, don't accumulate
 
-The profile is a model, not an archive. A growing list of stale rules is worse than a shorter one.
+Stale preferences are as bad as wrong ones. At each paragraph pause, run
+`prune` — drop entries that have not been picked recently or were barely ever
+picked. The IME does the same by rebalancing its managed weight range; a tight,
+clean preference set is more useful than an accumulating archive.
 
-- **At each paragraph pause**, and **when the author stops**, skim the profile. Ask whether each pref still holds — a preference confirmed for one paragraph may not for the next.
-- **Conflict resolution:** if a newer choice contradicts an older entry, the newer one wins. Update the entry, don't stack a contradiction on top of it.
-- **Don't keep dead entries.** A kill-item that hasn't been exercised in many paragraphs, or one that came from a one-off you later generalized, is a candidate to drop. Better to re-learn a preference than to keep enforcing a stale rule the author never meant.
+## Keep it soft even when it's obvious
 
-## Preserve, don't homogenize
-
-The failure mode to guard against: every sentence drifting toward the same clean, generic cadence until the paper loses its author. Re-read a few of their kept-original sentences periodically. Those are ground truth for their voice. If your proposals are starting to sound unlike those sentences, pull back — the author's clean original is the target, not a textbook ideal.
-
-## Cross-paper memory
-
-`global` preferences live in the persistent cross-paper profile at `~/.claude/skills/hardworking-paper-writer/memory/style-profile.md`. Load it at the start of a new paper (Phase 0) and write to it **only** when the author explicitly confirms a preference as lasting. Everything else stays in the workspace `style-profile.md`, which dies with the paper. The line between the two is the line between "what this author wants in general" and "what this author wants in this paper" — don't blur it.
+Re-read a few of the author's kept-original sentences periodically. Those are
+the ground truth for their voice. If your proposals are starting to sound
+uniformly different from those sentences, pull back — the author's clean
+original is the target, not a textbook ideal. The mechanism should reorder
+options within the author's voice, not erode it.

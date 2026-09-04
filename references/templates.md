@@ -96,19 +96,18 @@ _Initial read (before any choices), then updated as the author selects. Each ent
 - Semicolons, parentheticals: <...>
 
 ## Vocabulary
-- Keep-list (do not change): <field terms, pet phrases>
-- Kill-list (author cuts these): <...>
+- Recurring terms: <field terms, pet phrases — these stay available, but note them>
+- Terms the author keeps using/moving away from: <recorded in preference.db, not here>
 
 ## Edit aggressiveness
-- Observed preference: <Light / Medium / Bold>, updated as choices come in.
+- Observed preference: <Light / Medium / Bold>, updated as choices come in — soft, from `learn.py bias`.
 
-## Preferences (scoped)
-Each entry includes its scope so it never outlives its use.
-| Preference | Scope | Confirmed by | Notes |
-|------------|-------|--------------|-------|
-| Use "we", never passive | global | author, given paper #2 | |
-| Keep "utilize"; it's the field term | local | author, this paper | venue-specific |
-| Drop the third "Moreover" | sentence | — | one-off; not in profile |
+## Preferences (learned, in preference.db)
+The machine-learned preferences live in the workspace `preference.db` (see reference file `learn.py`), keyed by `section::role` and `version`. Keep this human-readable note only:
+| Context | Is the author leaning toward | Notes |
+|---------|------------------------------|-------|
+| abstract::topic | Medium (weight 4) | |
+| intro::support | Light (weight 3) | |
 
 ## Notes
 - <anything the author says about how they want to be edited>
