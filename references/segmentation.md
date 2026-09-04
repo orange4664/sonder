@@ -2,6 +2,8 @@
 
 Goal: turn the paper's prose into an ordered list of reviewable sentences with stable IDs, while leaving non-prose alone. Bad segmentation makes the whole loop frustrating, so handle the common traps below.
 
+**Segment against the finalized blueprint.** In this skill, segmentation happens only after Phase 2 (the brainstorm) settles the paragraph structure. If the author merged, split, reordered, or deleted paragraphs, the sentence order and paragraph grouping follow the *blueprint*, not the original draft. A paragraph that is now one merged unit gets one continuous run of IDs; a paragraph that was split gets the IDs split to match. Segmenting before the blueprint is final is a mistake — you'd be cutting an old shape you're about to change.
+
 ## What counts as a reviewable prose sentence
 
 Review running prose: abstract, introduction, body paragraphs, discussion, conclusion, and figure/table captions (captions carry a lot of slop and are worth including).

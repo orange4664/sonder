@@ -1,0 +1,55 @@
+# hardworking-paper-writer
+
+An interactive academic paper revision skill for Claude Code. It revises a paper **one paragraph at a time** — the author sets the shape first, then confirms each paragraph before the next one starts — while stripping AI writing tells (stop-slop) without flattening the author's own voice.
+
+> **Forked from** [caidish/cAI-tools](https://github.com/caidish/cAI-tools) — `plugins/science-skill/skills/hardworking-paper-writer`. Original author: [caidish](https://github.com/caidish). This repo is an adapted, privately-maintained version for in-group use.
+
+## What it does
+
+Given a `.tex`/`.md`/`.txt` paper, it runs three beats in order:
+
+1. **Read it all, then profile the voice.** Read the whole paper, note each paragraph's structure and a first-use map of key terms, and form a *hypothesis* about the author's style — not a rule set.
+2. **Brainstorm the blueprint.** Lay the whole paper's paragraph shape (what each paragraph is for, how it flows) in front of the author and let them **confirm, revise, or restructure** — merge, split, reorder, delete, or add paragraphs. Only when the shape is agreed does segmentation and editing begin.
+3. **Revise one paragraph at a time.** Work paragraph by paragraph. Within a paragraph, propose Light/Medium/Bold rewrites for each sentence, let the author choose, and track every decision. At the end of each paragraph, pause and get the author's go-ahead before moving on. Resume is seamless.
+
+Two design points that make it "hardworking":
+
+- **The author decides every sentence and the shape.** You propose; they dispose. The paper stays theirs.
+- **It gets better as it goes without over-correcting.** Feedback is learned at one of three scopes — `sentence`, `local` (this paper), or `global` (all the author's papers). One "don't write it that way" never silently becomes a blanket ban; a global rule is only ever set by explicit confirmation, and the profile is pruned as the author's taste shifts.
+
+## Install
+
+Claude Code loads skills from `~/.claude/skills/<skill-name>/`. Copy this directory there:
+
+```bash
+# from the repo root
+mkdir -p ~/.claude/skills/hardworking-paper-writer
+cp -R SKILL.md references memory ~/.claude/skills/hardworking-paper-writer/
+```
+
+Then in Claude Code, give it a paper path:
+
+```
+/hardworking-paper-writer path/to/paper.tex
+```
+
+It creates a `<paper-stem>-revision/` sibling directory holding `original/` (untouched), `working/`, `blueprint.md`, `revision-log.md`, and `style-profile.md`.
+
+## Skill layout
+
+- `SKILL.md` — the main skill: the stop-slop principles, the three-phase flow, and the paragraph-by-paragraph loop.
+- `references/segmentation.md` — splitting prose into sentence IDs without breaking math, citations, or environments (used *after* the blueprint is finalized).
+- `references/templates.md` — the blueprint, revision-log, and style-profile formats.
+- `references/preference-learning.md` — how feedback is learned at three scopes and pruned, to avoid over-absorption.
+- `memory/style-profile.md` — cross-paper (`global`) preferences, written only when the author confirms a rule as lasting.
+
+## Adaptation notes (relative to the upstream skill)
+
+- **Added the blueprint phase.** Upstream reads the paper and goes straight into a sentence-by-sentence pass with only a paragraph *end* checkpoint. This version won't fix a sentence until the author has agreed on what each paragraph is for — and can restructure paragraphs first.
+- **Made it one paragraph at a time.** Upstream crawls the whole paper; this version pauses for the author's go-ahead after each paragraph.
+- **Scoped the preference learning.** Upstream treats a steer as a standing rule and applies keep/kill-lists automatically. This version scopes every entry, confirms before generalizing, and prunes stale ones — the "over-absorption" fix.
+- **Segments against the blueprint, not the draft.** Sentence IDs follow the agreed paragraph structure.
+
+## License
+
+The **upstream repo has no license file**. This fork preserves that ambiguity — it must not carry a license the original doesn't. If the group wants to publish or share this beyond itself, **the group owner needs to decide the license first**, ideally in agreement with the upstream author. Until then, treat this as in-group only.
