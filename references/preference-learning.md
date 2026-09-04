@@ -35,6 +35,39 @@ single "don't" is not a rule — it's one downvote.
    Neither is removed. This is what keeps the author's voice from being
    flattened — the full range of options stays on the table, just reordered.
 
+## Two layers, two jobs
+
+`library/learn.py` keeps **two** stores, because "get familiar with you" has two
+distinct needs that don't collapse into one table:
+
+- **`prefs`** — weighted choices. "In abstract topic sentences, the author
+  reaches for Medium." This orders *which options I lead with*.
+- **`exemplars`** — sentence memory. The author's own kept or self-written
+  sentences, stored as canonical examples of their voice. When I propose a
+  rewrite, `nearest` retrieves the most similar stored sentence and I write the
+  rewrite *in that register*. This sets *what the author's voice actually sounds
+  like*, which no set of weights can capture — a weight says "how much," an
+  exemplar says "how."
+
+## The sentence memory (CBR-style exemplars)
+
+This is the part that "remembers sentences." It is case-based reasoning, not a
+neural net.
+
+- When the author picks **Keep original**, or types their own wording in
+  "Other" and it becomes the final text, `store` that exact sentence as an
+  `author` exemplar in `preference.db`.
+- Before proposing options for a new sentence, `nearest` finds the most similar
+  stored author sentence (by character 3-gram TF-IDF cosine — pure Python, no
+  training, no external deps).
+- Use that as the **register** the rewrites are written in. The stored sentences
+  are the ground truth for the author's voice: a rewrite should sound like the
+  author on their best day, not like a generic editor.
+- The similarity matcher is intentionally replaceable: swap the cosine for a
+  `sentence-transformers` model and the calls stay the same. The categorical
+  jump to a neural network only adds *generalization beyond exact overlap* — it
+  costs data, and it is not needed to remember what the author already wrote.
+
 ## The context is the sentence's job, not its topic
 
 In the IME the context key is the preceding text (so "我吃" and "我是" learn
@@ -70,12 +103,24 @@ drop the low ones — the point is exactly that they stay available.
 Trust the author at each step: when you apply a nudged preference, let them see
 it working. If they say "not here," that's a `signal`, not a new global rule.
 
+## Learn to forget
+
+A preference is not a tax on your memory. The store applies **exponential decay**
+when it reads — a weight halves every `HALF_LIFE_DAYS` (default 30) since the
+last time the author exercised it. So a preference the author stopped
+reinforcing quietly fades, instead of accumulating into a pile of stale rules
+that no longer match what they want. This is the same reason Rime's user
+dictionary keeps a `d` (decay) and `t` (timestamp) alongside the count.
+
 ## Prune, don't accumulate
 
 Stale preferences are as bad as wrong ones. At each paragraph pause, run
 `prune` — drop entries that have not been picked recently or were barely ever
-picked. The IME does the same by rebalancing its managed weight range; a tight,
-clean preference set is more useful than an accumulating archive.
+picked. `prune` only removes an option the author never really used *and* whose
+weight has decayed below the floor; a downweighted-but-used option stays, so a
+rejection never becomes a deletion. The IME does the same by rebalancing its
+managed weight range; a tight, clean preference set is more useful than an
+accumulating archive.
 
 ## Keep it soft even when it's obvious
 

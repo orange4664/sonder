@@ -15,7 +15,7 @@ Given a `.tex`/`.md`/`.txt` paper, it runs three beats in order:
 Two design points that make it "hardworking":
 
 - **The author decides every sentence and the shape.** You propose; they dispose. The paper stays theirs.
-- **It gets better as it goes without over-correcting.** Preferences are learned the way a self-learning input method "gets to know you": soft, weighted, and scoped. Every choice is a `record` (small upward weight), every rejection a `signal` (small downward weight), both keyed by the sentence's `section::role` context. Nothing is banned. Only when the author explicitly says "I always want this" does it become a `global` preference. The learning lives in `library/learn.py` and the workspace `preference.db`.
+- **It gets better as it goes without over-correcting.** Preferences are learned the way a self-learning input method "gets to know you": soft, weighted, and decaying. Every choice is a `record` (small upward weight) or `signal` (small downward weight), keyed by the sentence's `section::role` context, and weights *decay by age* so a preference the author stopped reinforcing fades rather than piling up. Nothing is banned, and only an explicit "always" becomes a `global`. The skill also keeps the author's own kept/self-written sentences as voice exemplars (`store`) and retrieves the most similar one (`nearest`) to write rewrites *in the author's register*, not a generic editor's. Implemented in `library/learn.py` (two-layer: weighted choices + CBR-style sentence memory).
 
 ## Install
 
@@ -41,14 +41,14 @@ It creates a `<paper-stem>-revision/` sibling directory holding `original/` (unt
 - `references/segmentation.md` — splitting prose into sentence IDs without breaking math, citations, or environments (used *after* the blueprint is finalized).
 - `references/templates.md` — the blueprint, revision-log, and style-profile formats.
 - `references/preference-learning.md` — how feedback is learned soft/weighted/context-scoped, to avoid over-absorption.
-- `library/learn.py` — the ported preference-learning engine (SQLite-backed): `record`, `signal`, `bias`, `global`, `prune`.
+- `library/learn.py` — the ported preference-learning engine (SQLite-backed), two layers: `record`/`signal`/`bias`/`global`/`prune` for weighted choices (with age-decay), and `store`/`nearest`/`list` for CBR-style sentence memory.
 - `memory/style-profile.md` — cross-paper (`global`) preferences, written only when the author confirms a rule as lasting.
 
 ## Adaptation notes (relative to the upstream skill)
 
 - **Added the blueprint phase.** Upstream reads the paper and goes straight into a sentence-by-sentence pass with only a paragraph *end* checkpoint. This version won't fix a sentence until the author has agreed on what each paragraph is for — and can restructure paragraphs first.
 - **Made it one paragraph at a time.** Upstream crawls the whole paper; this version pauses for the author's go-ahead after each paragraph.
-- **Replaced rule-based preference learning with an IME-style soft, weighted store.** The upstream skill treats a steer as a standing rule and applies keep/kill-lists automatically (the "over-absorption" problem). This version ports how a self-learning input method gets familiar with you — record a choice, count it, nudge it up *in context*, never ban it — from Metasequoia IME `user_dictionary_journal.cpp`, corroborated by libpinyin (`pinyin_remember_user_input` / `pinyin_train`) and ZFVimIM (history-driven re-ranking). Implemented in `library/learn.py`.
+- **Replaced rule-based preference learning with a two-layer IME-style store.** The upstream skill treats a steer as a standing rule and applies keep/kill-lists automatically (the "over-absorption" problem). This version ports how a self-learning input method gets familiar with you — record a choice, count it, nudge it up *in context*, never ban it, and *forget it as it ages* — from Metasequoia IME `user_dictionary_journal.cpp`, corroborated by libpinyin (`pinyin_remember_user_input` / `pinyin_train`), ZFVimIM (history-driven re-ranking), and Rime's user-dictionary `c`/`d`/`t` decay. On top of that it keeps the author's own sentences as CBR-style voice exemplars (`store`/`nearest`), so rewrites are written in the author's register. Implemented in `library/learn.py`.
 - **Segments against the blueprint, not the draft.** Sentence IDs follow the agreed paragraph structure.
 
 ## License
