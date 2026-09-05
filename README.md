@@ -1,8 +1,8 @@
-# hardworking-paper-writer
+# sonder
 
 An interactive academic paper revision skill for Claude Code. It revises a paper **one paragraph at a time** — the author sets the shape first, then confirms each paragraph before the next one starts — while stripping AI writing tells (stop-slop) without flattening the author's own voice.
 
-> **Forked from** [caidish/cAI-tools](https://github.com/caidish/cAI-tools) — `plugins/science-skill/skills/hardworking-paper-writer`. Original author: [caidish](https://github.com/caidish). This repo is an adapted, privately-maintained version for in-group use.
+> **Forked/adapted from** [caidish/cAI-tools](https://github.com/caidish/cAI-tools) — `plugins/science-skill/skills/hardworking-paper-writer`. Original author: [caidish](https://github.com/caidish). This version is reworked and re-published under GPL-3.0.
 
 ## What it does
 
@@ -12,7 +12,7 @@ Given a `.tex`/`.md`/`.txt` paper, it runs three beats in order:
 2. **Brainstorm the blueprint.** Lay the whole paper's paragraph shape (what each paragraph is for, how it flows) in front of the author and let them **confirm, revise, or restructure** — merge, split, reorder, delete, or add paragraphs. Only when the shape is agreed does segmentation and editing begin.
 3. **Revise one paragraph at a time.** Work paragraph by paragraph. Within a paragraph, propose Light/Medium/Bold rewrites for each sentence, let the author choose, and track every decision. At the end of each paragraph, pause and get the author's go-ahead before moving on. Resume is seamless.
 
-Two design points that make it "hardworking":
+Two design points that make it "sonder":
 
 - **The author decides every sentence and the shape.** You propose; they dispose. The paper stays theirs.
 - **It gets better as it goes without over-correcting.** Preferences are learned the way a self-learning input method "gets to know you": soft, weighted, and decaying. Every choice is a `record` (small upward weight) or `signal` (small downward weight), keyed by the sentence's `section::role` context, and weights *decay by age* so a preference the author stopped reinforcing fades rather than piling up. Nothing is banned, and only an explicit "always" becomes a `global`. The skill also keeps the author's own kept/self-written sentences as voice exemplars (`store`) and retrieves the most similar one (`nearest`) to write rewrites *in the author's register*, not a generic editor's. Implemented in `library/learn.py` (two-layer: weighted choices + CBR-style sentence memory).
@@ -23,14 +23,14 @@ Claude Code loads skills from `~/.claude/skills/<skill-name>/`. Copy this direct
 
 ```bash
 # from the repo root
-mkdir -p ~/.claude/skills/hardworking-paper-writer
-cp -R SKILL.md references memory library ~/.claude/skills/hardworking-paper-writer/
+mkdir -p ~/.claude/skills/sonder
+cp -R SKILL.md references memory library ~/.claude/skills/sonder/
 ```
 
 Then in Claude Code, give it a paper path:
 
 ```
-/hardworking-paper-writer path/to/paper.tex
+/sonder path/to/paper.tex
 ```
 
 It creates a `<paper-stem>-revision/` sibling directory holding `original/` (untouched), `working/`, `blueprint.md`, `revision-log.md`, `style-profile.md`, and `preference.db`.
@@ -53,4 +53,4 @@ It creates a `<paper-stem>-revision/` sibling directory holding `original/` (unt
 
 ## License
 
-The **upstream repo has no license file**. This fork preserves that ambiguity — it must not carry a license the original doesn't. If the group wants to publish or share this beyond itself, **the group owner needs to decide the license first**, ideally in agreement with the upstream author. Until then, treat this as in-group only.
+[GPL-3.0](LICENSE). The preference-learning engine in `library/learn.py` is a port of the adaptive-candidate mechanism in Metasequoia IME (`user_dictionary_journal.cpp`, GPL-3.0), corroborated by libpinyin and ZFVimIM, so this repo is distributed under GPL-3.0. The upstream `cAI-tools` repo had no license; this repo's license is its own choice and applies to this fork's code and adaptations.

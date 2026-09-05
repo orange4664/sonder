@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# End-to-end test for hardworking-paper-writer's revision loop.
+# End-to-end test for sonder's revision loop.
 # This reproduces the Phase 1→2→3 flow on a tiny demo paper WITHOUT needing a
 # user at the prompt: it acts as the "author", recording a couple of choices,
 # verifying the soft-store (bias), and the sentence-vocabulary (nearest).

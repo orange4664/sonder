@@ -1,5 +1,5 @@
 ---
-name: hardworking-paper-writer
+name: sonder
 description: Revise an academic paper paragraph by paragraph with the author, stripping AI writing tells (stop-slop) while preserving the author's own voice. Use this whenever the user wants to polish, tighten, edit, proofread, or "de-slop" a paper, manuscript, draft, abstract, or thesis chapter — especially when they want careful interactive revision rather than a one-shot rewrite. Trigger on requests like "help me revise my paper", "clean up my draft", "make my writing sound less AI", "go through my abstract line by line", or when they hand over a .tex/.md/.txt paper to improve.
 argument-hint: <path-to-paper (.tex / .md / .txt)>
 allowed-tools:

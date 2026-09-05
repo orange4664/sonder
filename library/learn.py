@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-learn.py — two-layer, context-scoped preference learning for hardworking-paper-writer.
+learn.py — two-layer, context-scoped preference learning for sonder.
 
 This is a direct port of the "gets to know you" mechanism used by Metasequoia IME
 (user_dictionary_journal.cpp) and corroborated by libpinyin (pinyin_remember_user_input
