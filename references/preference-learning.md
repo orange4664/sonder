@@ -115,10 +115,13 @@ dictionary keeps a `d` (decay) and `t` (timestamp) alongside the count.
 ## Prune, don't accumulate
 
 Stale preferences are as bad as wrong ones. At each paragraph pause, run
-`prune` — drop entries that have not been picked recently or were barely ever
-picked. `prune` only removes an option the author never really used *and* whose
-weight has decayed below the floor; a downweighted-but-used option stays, so a
-rejection never becomes a deletion. The IME does the same by rebalancing its
+`prune` — drop entries that have gone stale. An entry is removed only when it is
+both **old** (no reinforcement for `stale_days`, default 30) *and* **light**
+(its age-decayed weight has fallen below the floor). Pick count is deliberately
+not a criterion: a fresh one-off confirmation survives every paragraph pause,
+and a heavily-used preference the author has since abandoned still gets removed
+once it has decayed. A downweighted-but-recent option stays, so a rejection
+never becomes a deletion. The IME does the same by rebalancing its
 managed weight range; a tight, clean preference set is more useful than an
 accumulating archive.
 

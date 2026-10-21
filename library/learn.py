@@ -33,13 +33,13 @@ new training step, and entirely optional.
 
 Run via CLI. Every command talks to the same SQLite database (preference.db).
 Usage:
-  python3 learn.py record <db> <section> <role> <opt> <weight>
-  python3 learn.py signal <db> <section> <role> <opt> [weight]
+  python3 learn.py record <db> <section> <role> <opt> [weight=1000]
+  python3 learn.py signal <db> <section> <role> <opt> [weight=1000]   # magnitude; always a dip
   python3 learn.py bias   <db> <section> <role> [options...]
   python3 learn.py store  <db> <kind> <sentence>            # store author sentence
   python3 learn.py nearest <db> <sentence> [n]              # similar author sentences
   python3 learn.py list   <db> [kind]                       # view stored sentences
-  python3 learn.py prune  <db> [minpicks] [minweight]
+  python3 learn.py prune  <db> [stale_days=30] [min_weight=1000]
   python3 learn.py reshow <db>
   python3 learn.py backend <db> [ngram|sklearn|embed]       # set/pick similarity backend
 """
@@ -254,12 +254,17 @@ def _weight_of(conn, context, opt):
 
 # --- layer 1: weighted choices ---------------------------------------------
 def _bump(conn, context, opt, delta, picks_delta=1):
+    # last_at is written in the SAME ISO-8601 UTC format as exemplars.last_at
+    # (via _now_iso), so both tables parse identically in _age_days. Previously
+    # prefs used sqlite's datetime('now') (no 'T', no tz) while exemplars used
+    # ISO with tz — two formats for one concept.
     conn.execute(
         """
-        INSERT INTO prefs(context, opt, weight, picks) VALUES(:ctx,:opt,:w,:p)
+        INSERT INTO prefs(context, opt, weight, picks, last_at)
+        VALUES(:ctx,:opt,:w,:p,:now)
         ON CONFLICT(context,opt) DO UPDATE SET
           weight=MAX(:w, weight+:w2), picks=picks+:p2,
-          last_at=datetime('now')
+          last_at=:now
         """,
         {
             "ctx": context,
@@ -268,31 +273,51 @@ def _bump(conn, context, opt, delta, picks_delta=1):
             "w2": delta,
             "p": picks_delta,
             "p2": picks_delta,
+            "now": _now_iso(),
         },
     )
 
 
+def _positive_weight(weight, what):
+    """A weight magnitude must be a positive integer. 0 is NOT silently promoted
+    to the default (the old `int(w) or 1000` did that); a caller passing 0 has
+    made a mistake and should hear about it."""
+    w = int(weight)
+    if w <= 0:
+        raise ValueError(f"{what} weight must be a positive integer, got {w}")
+    return w
+
+
 def record(db, section, role, opt, weight=1000):
     """The author picked `opt` in this context. Increase its weight/picks."""
+    if not str(opt).strip():
+        raise ValueError("record: option name is empty")
     conn = _open(db)
-    _bump(conn, _context(section, role), opt, int(weight) or 1000, 1)
+    _bump(conn, _context(section, role), opt, _positive_weight(weight, "record"), 1)
     conn.commit()
     conn.close()
 
 
 def signal(db, section, role, opt, weight=-1000):
     """The author declined `opt` here. Nudge it DOWN, never ban it. It can
-    compete back up if the author later prefers it (this is the IME behavior)."""
+    compete back up if the author later prefers it (this is the IME behavior).
+
+    `weight` is the magnitude of the dip; its sign is ignored, so a caller who
+    passes +500 by mistake still gets a DOWNWARD nudge. (Previously a positive
+    value silently RAISED the rejected option.)"""
+    if not str(opt).strip():
+        raise ValueError("signal: option name is empty")
+    dip = -abs(int(weight)) or -1000
     conn = _open(db)
     ctx = _context(section, role)
     w, _ = _weight_of(conn, ctx, opt)
     if w <= FLOOR:
         # Never-chosen (or already-floored) option: a rejection must not create
-        # or raise an entry. Previously `max(-1000, FLOOR - 0)` produced +1 and
-        # quietly gave the rejected option a positive weight.
+        # or raise an entry.
         conn.close()
         return
-    _bump(conn, ctx, opt, max(int(weight) or -1000, FLOOR - w), 0)
+    # Never go below the floor; a downweight is never a deletion.
+    _bump(conn, ctx, opt, max(dip, FLOOR - w), 0)
     conn.commit()
     conn.close()
 
@@ -353,7 +378,15 @@ def _store_exemplar(conn, kind, text):
 
 
 def store(db, kind, text):
-    """Store an author sentence as a canonical voice exemplar."""
+    """Store an author sentence as a canonical voice exemplar.
+
+    Refuses an empty/whitespace sentence and one that normalizes to nothing
+    (e.g. pure punctuation): such a row carries no n-grams, can never match,
+    and would sit in the store as permanent zero-score noise."""
+    if not str(text).strip():
+        raise ValueError("store: sentence is empty")
+    if not _matcher_norm(text):
+        raise ValueError("store: sentence has no letters, digits or CJK characters to match on")
     conn = _open(db)
     _store_exemplar(conn, kind, text)
     conn.commit()
@@ -438,29 +471,49 @@ def list_exemplars(db, kind=None):
 
 
 # --- upkeep -----------------------------------------------------------------
-def prune(db, min_picks=0, min_weight=MIN_WEIGHT, stale_days=30):
+def prune(db, stale_days=30, min_weight=MIN_WEIGHT):
     """Drop stale preference/example entries — the memory 'forgets' the things
     the author stopped reinforcing rather than holding them forever.
 
-    The primary test is STALENESS, not pick count: an entry is pruned only if it
-    has gone `stale_days` without being exercised (or was never exercised and is
-    now old). This keeps a fresh, single confirmation alive — a one-off 'keep
-    this' should survive a paragraph pause, not be deleted the moment it's written.
-    The decay at read time already lowers a long-unused preference; this removes it
+    The test is STALENESS plus DECAYED WEIGHT, never a raw pick count. An entry
+    is pruned when it has gone `stale_days` without being exercised AND its
+    decayed weight has fallen below `min_weight`. Two consequences:
+
+    - A fresh single confirmation always survives a paragraph pause (it is not
+      stale), so a one-off "keep this" is never deleted the moment it's written.
+    - A heavily-used preference the author has since abandoned DOES get removed
+      once it is old enough to have decayed below the floor. (The previous
+      `picks <= N` guard made any option picked more than N times immortal —
+      a 3-pick preference survived 400 days of disuse. That contradicted the
+      "learn to forget" promise.)
+
+    Decay at read time already lowers a long-unused preference; this removes it
     once it's genuinely dry."""
     conn = _open(db)
-    # Purge preferences that have been idle past stale_days and have decayed low.
-    conn.execute(
-        "DELETE FROM prefs WHERE context!='__GLOBAL__' AND "
-        "((last_at IS NULL OR last_at < datetime('now', ?) ) AND picks <= ?)",
-        (f"-{int(stale_days)} days", min_picks),
-    )
+    cutoff = (datetime.now(timezone.utc).timestamp() - int(stale_days) * 86400)
+    rows = conn.execute(
+        "SELECT context, opt, weight, last_at FROM prefs WHERE context!='__GLOBAL__'"
+    ).fetchall()
+    for ctx, opt, w, last in rows:
+        try:
+            last_ts = datetime.fromisoformat(last).replace(
+                tzinfo=datetime.fromisoformat(last).tzinfo or timezone.utc
+            ).timestamp()
+        except (ValueError, TypeError):
+            last_ts = cutoff + 1   # unparseable timestamp: treat as fresh, keep
+        if last_ts < cutoff and int(w * _decay(last)) < min_weight:
+            conn.execute("DELETE FROM prefs WHERE context=? AND opt=?", (ctx, opt))
     # Drop exemplars that are old and were essentially never reinforced.
-    conn.execute(
-        "DELETE FROM exemplars WHERE rewards< ? AND "
-        "last_at < datetime('now', ?)",
-        (2, f"-{int(stale_days)} days"),
-    )
+    rows = conn.execute("SELECT id, last_at, rewards FROM exemplars").fetchall()
+    for id_, last, rewards in rows:
+        try:
+            last_ts = datetime.fromisoformat(last).replace(
+                tzinfo=datetime.fromisoformat(last).tzinfo or timezone.utc
+            ).timestamp()
+        except (ValueError, TypeError):
+            continue
+        if rewards < 2 and last_ts < cutoff:
+            conn.execute("DELETE FROM exemplars WHERE id=?", (id_,))
     conn.commit()
     conn.close()
 
@@ -527,8 +580,8 @@ def main():
             print(get_backend(sys.argv[2]))
         elif cmd == "prune":
             prune(sys.argv[2],
-                  int(sys.argv[3]) if len(sys.argv) > 3 else 2,
-                  int(sys.argv[4]) if len(sys.argv) > 4 else MIN_WEIGHT)
+                  int(sys.argv[3]) if len(sys.argv) > 3 else 30,          # stale_days
+                  int(sys.argv[4]) if len(sys.argv) > 4 else MIN_WEIGHT)  # min_weight
             print("ok")
         elif cmd == "reshow":
             reshow(sys.argv[2])
