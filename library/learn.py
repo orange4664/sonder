@@ -96,8 +96,15 @@ def _set_backend(db, backend):
 
 # --- Matchers ---------------------------------------------------------------
 def _matcher_norm(text):
-    """Normalized text for both TF-IDF matchers."""
-    return " ".join(re.findall(r"[A-Za-z0-9]+", text.lower()))
+    """Normalized text for both TF-IDF matchers.
+
+    Keeps Latin words/digits AND individual CJK characters, so Chinese (and
+    Japanese/Korean) sentences participate in the character n-grams instead of
+    being stripped to nothing. Each CJK char is kept as its own token; the
+    3-gram window then spans neighbouring characters, which is the right unit
+    for CJK where there are no word boundaries."""
+    return " ".join(re.findall(r"[A-Za-z0-9]+|[぀-ヿ㐀-䶿一-鿿가-힯]",
+                               text.lower()))
 
 
 def _ngram_vec(text, df, idf):
@@ -204,7 +211,8 @@ def _open(db):
             ngram    TEXT NOT NULL,
             created  TEXT NOT NULL,
             last_at  TEXT NOT NULL,
-            rewards  INTEGER NOT NULL DEFAULT 0
+            rewards  INTEGER NOT NULL DEFAULT 0,
+            UNIQUE(kind, text)
         );
         """
     )
@@ -276,8 +284,15 @@ def signal(db, section, role, opt, weight=-1000):
     """The author declined `opt` here. Nudge it DOWN, never ban it. It can
     compete back up if the author later prefers it (this is the IME behavior)."""
     conn = _open(db)
-    w, _ = _weight_of(conn, _context(section, role), opt)
-    _bump(conn, _context(section, role), opt, max(int(weight) or -1000, FLOOR - w), 0)
+    ctx = _context(section, role)
+    w, _ = _weight_of(conn, ctx, opt)
+    if w <= FLOOR:
+        # Never-chosen (or already-floored) option: a rejection must not create
+        # or raise an entry. Previously `max(-1000, FLOOR - 0)` produced +1 and
+        # quietly gave the rejected option a positive weight.
+        conn.close()
+        return
+    _bump(conn, ctx, opt, max(int(weight) or -1000, FLOOR - w), 0)
     conn.commit()
     conn.close()
 
@@ -317,10 +332,23 @@ def _store_exemplar(conn, kind, text):
         )
     )), ensure_ascii=False, sort_keys=True)
     now = _now_iso()
+    # Re-storing the same (kind, text) is a REINFORCEMENT, not a duplicate:
+    # bump rewards and refresh last_at so the sentence counts as a stronger,
+    # fresher voice anchor. (Needs the UNIQUE(kind,text) constraint.)
     conn.execute(
-        "INSERT OR REPLACE INTO exemplars(kind,text,ngram,created,last_at,rewards) "
-        "VALUES(:k,:t,:n,:c,:c,:r)",
-        {"k": kind, "t": text, "n": ngram, "c": now, "r": 1},
+        "INSERT INTO exemplars(kind,text,ngram,created,last_at,rewards) "
+        "VALUES(:k,:t,:n,:c,:c,1) "
+        "ON CONFLICT(kind,text) DO UPDATE SET "
+        "  rewards=rewards+1, last_at=:c, ngram=:n",
+        {"k": kind, "t": text, "n": ngram, "c": now},
+    )
+    # Cap the store: drop the stalest, least-reinforced rows beyond MAX_EXEMPLARS.
+    conn.execute(
+        "DELETE FROM exemplars WHERE id IN ("
+        "  SELECT id FROM exemplars ORDER BY rewards ASC, last_at ASC "
+        "  LIMIT MAX(0, (SELECT COUNT(*) FROM exemplars) - :cap)"
+        ")",
+        {"cap": MAX_EXEMPLARS},
     )
 
 
@@ -466,7 +494,10 @@ def main():
     cmd = sys.argv[1]
     try:
         if cmd == "record":
-            record(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+            # weight is optional — SKILL.md documents the 4-arg form
+            # `record <db> <section> <role> <opt>`; default to 1000.
+            record(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5],
+                   sys.argv[6] if len(sys.argv) > 6 else 1000)
             print("ok")
         elif cmd == "signal":
             signal(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5],
