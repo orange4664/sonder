@@ -1,0 +1,361 @@
+{
+  "provenance": "Synthetic academic sentences independently annotated by writing-use agents. Grammar evidence retained; rhetoric omitted here to isolate the construction mechanism. Not a linguistic gold standard.",
+  "candidates": [
+    {
+      "id": "R05",
+      "label": "Equal label",
+      "text": "只有温度低于阈值时，振幅才保持稳定。",
+      "grammar": {
+        "version": 2,
+        "source": "writing-model",
+        "text_sha256": "b1ac4b402f5c1401621dd981ee37812d078288d83199a660d6623882a3431472",
+        "frames": [
+          {
+            "kind": "expression",
+            "start": 0,
+            "end": 9,
+            "text": "只有温度低于阈值时",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 2,
+                "end": 4,
+                "text": "温度"
+              },
+              {
+                "role": "event",
+                "start": 4,
+                "end": 6,
+                "text": "低于"
+              },
+              {
+                "role": "complement",
+                "start": 6,
+                "end": 8,
+                "text": "阈值"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "expression",
+            "start": 10,
+            "end": 17,
+            "text": "振幅才保持稳定",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 10,
+                "end": 12,
+                "text": "振幅"
+              },
+              {
+                "role": "event",
+                "start": 13,
+                "end": 15,
+                "text": "保持"
+              },
+              {
+                "role": "complement",
+                "start": 15,
+                "end": 17,
+                "text": "稳定"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 18,
+            "text": "只有温度低于阈值时，振幅才保持稳定。",
+            "slots": [
+              {
+                "role": "head",
+                "start": 10,
+                "end": 17,
+                "text": "振幅才保持稳定"
+              },
+              {
+                "role": "dependent",
+                "start": 0,
+                "end": 9,
+                "text": "只有温度低于阈值时"
+              }
+            ],
+            "relation": "condition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R06",
+      "label": "Equal label",
+      "text": "振幅仅在温度低于阈值时保持稳定。",
+      "grammar": {
+        "version": 2,
+        "source": "writing-model",
+        "text_sha256": "3b336c63d732105620a1e7813265fc1bb7d51da46e95263876373e7cfd85610e",
+        "frames": [
+          {
+            "kind": "expression",
+            "start": 0,
+            "end": 16,
+            "text": "振幅仅在温度低于阈值时保持稳定。",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 0,
+                "end": 2,
+                "text": "振幅"
+              },
+              {
+                "role": "event",
+                "start": 11,
+                "end": 13,
+                "text": "保持"
+              },
+              {
+                "role": "complement",
+                "start": 13,
+                "end": 15,
+                "text": "稳定"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "expression",
+            "start": 4,
+            "end": 10,
+            "text": "温度低于阈值",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 4,
+                "end": 6,
+                "text": "温度"
+              },
+              {
+                "role": "event",
+                "start": 6,
+                "end": 8,
+                "text": "低于"
+              },
+              {
+                "role": "complement",
+                "start": 8,
+                "end": 10,
+                "text": "阈值"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 16,
+            "text": "振幅仅在温度低于阈值时保持稳定。",
+            "slots": [
+              {
+                "role": "head",
+                "start": 11,
+                "end": 15,
+                "text": "保持稳定"
+              },
+              {
+                "role": "dependent",
+                "start": 2,
+                "end": 11,
+                "text": "仅在温度低于阈值时"
+              }
+            ],
+            "relation": "condition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R07",
+      "label": "Equal label",
+      "text": "只有载荷低于上限时，位移才保持恒定。",
+      "grammar": {
+        "version": 2,
+        "source": "writing-model",
+        "text_sha256": "9438a0697adc000796f72042d4d74b934cc8b2de16cc4f5d6a3cac5c70cd4b58",
+        "frames": [
+          {
+            "kind": "expression",
+            "start": 0,
+            "end": 9,
+            "text": "只有载荷低于上限时",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 2,
+                "end": 4,
+                "text": "载荷"
+              },
+              {
+                "role": "event",
+                "start": 4,
+                "end": 6,
+                "text": "低于"
+              },
+              {
+                "role": "complement",
+                "start": 6,
+                "end": 8,
+                "text": "上限"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "expression",
+            "start": 10,
+            "end": 17,
+            "text": "位移才保持恒定",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 10,
+                "end": 12,
+                "text": "位移"
+              },
+              {
+                "role": "event",
+                "start": 13,
+                "end": 15,
+                "text": "保持"
+              },
+              {
+                "role": "complement",
+                "start": 15,
+                "end": 17,
+                "text": "恒定"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 18,
+            "text": "只有载荷低于上限时，位移才保持恒定。",
+            "slots": [
+              {
+                "role": "head",
+                "start": 10,
+                "end": 17,
+                "text": "位移才保持恒定"
+              },
+              {
+                "role": "dependent",
+                "start": 0,
+                "end": 9,
+                "text": "只有载荷低于上限时"
+              }
+            ],
+            "relation": "condition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R08",
+      "label": "Equal label",
+      "text": "位移仅在载荷低于上限时保持恒定。",
+      "grammar": {
+        "version": 2,
+        "source": "writing-model",
+        "text_sha256": "f5f49067025048bdcaf493e5be75a2b5dca7cc3f45f74dead820cfe3a728596d",
+        "frames": [
+          {
+            "kind": "expression",
+            "start": 0,
+            "end": 16,
+            "text": "位移仅在载荷低于上限时保持恒定。",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 0,
+                "end": 2,
+                "text": "位移"
+              },
+              {
+                "role": "event",
+                "start": 11,
+                "end": 13,
+                "text": "保持"
+              },
+              {
+                "role": "complement",
+                "start": 13,
+                "end": 15,
+                "text": "恒定"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "expression",
+            "start": 4,
+            "end": 10,
+            "text": "载荷低于上限",
+            "slots": [
+              {
+                "role": "patient",
+                "start": 4,
+                "end": 6,
+                "text": "载荷"
+              },
+              {
+                "role": "event",
+                "start": 6,
+                "end": 8,
+                "text": "低于"
+              },
+              {
+                "role": "complement",
+                "start": 8,
+                "end": 10,
+                "text": "上限"
+              }
+            ],
+            "form": "verbal",
+            "voice": "nonagentive"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 16,
+            "text": "位移仅在载荷低于上限时保持恒定。",
+            "slots": [
+              {
+                "role": "head",
+                "start": 11,
+                "end": 15,
+                "text": "保持恒定"
+              },
+              {
+                "role": "dependent",
+                "start": 2,
+                "end": 11,
+                "text": "仅在载荷低于上限时"
+              }
+            ],
+            "relation": "condition"
+          }
+        ]
+      }
+    }
+  ]
+}

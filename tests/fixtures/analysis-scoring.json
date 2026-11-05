@@ -1,0 +1,509 @@
+{
+  "source_a": {
+    "candidates": [
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "1d8ccf6a16f99f2b9176aa443cd4edfec4c153671147ae92881730145abbb318",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "limitation",
+              "parts": [
+                {
+                  "end": 19,
+                  "start": 0,
+                  "text": "受限于观测窗口，估计仅覆盖前10分钟。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [],
+          "source": "writing-model",
+          "text_sha256": "1d8ccf6a16f99f2b9176aa443cd4edfec4c153671147ae92881730145abbb318",
+          "version": 6
+        },
+        "id": "keep",
+        "label": "Keep original",
+        "text": "受限于观测窗口，估计仅覆盖前10分钟。"
+      }
+    ],
+    "edit_scope": {
+      "before_text": "受限于观测窗口，估计仅覆盖前10分钟。",
+      "keep_original_id": "keep",
+      "sentence_ids": [
+        "C03"
+      ]
+    },
+    "learning_context": {
+      "role": "detail",
+      "section": "methods"
+    },
+    "round_id": "fixture-source_a"
+  },
+  "source_b": {
+    "candidates": [
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "1d8ccf6a16f99f2b9176aa443cd4edfec4c153671147ae92881730145abbb318",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 19,
+                  "start": 0,
+                  "text": "受限于观测窗口，估计仅覆盖前10分钟。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [],
+          "source": "writing-model",
+          "text_sha256": "1d8ccf6a16f99f2b9176aa443cd4edfec4c153671147ae92881730145abbb318",
+          "version": 6
+        },
+        "id": "keep",
+        "label": "Keep original",
+        "text": "受限于观测窗口，估计仅覆盖前10分钟。"
+      }
+    ],
+    "edit_scope": {
+      "before_text": "受限于观测窗口，估计仅覆盖前10分钟。",
+      "keep_original_id": "keep",
+      "sentence_ids": [
+        "C03-S002"
+      ]
+    },
+    "learning_context": {
+      "role": "detail",
+      "section": "methods"
+    },
+    "round_id": "fixture-source_b"
+  },
+  "probe": {
+    "candidates": [
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "80b121feb80812fe573f57a6569e33650054ea2956272bf6724d15d27a7b2583",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "limitation",
+              "parts": [
+                {
+                  "end": 18,
+                  "start": 0,
+                  "text": "受限于扫描范围，拟合只覆盖中央区域。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 7,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "event",
+                  "start": 0,
+                  "text": "受限"
+                },
+                {
+                  "end": 7,
+                  "role": "complement",
+                  "start": 3,
+                  "text": "扫描范围"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "受限于扫描范围",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 18,
+              "kind": "link",
+              "relation": "cause",
+              "slots": [
+                {
+                  "end": 7,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "受限于扫描范围"
+                },
+                {
+                  "end": 17,
+                  "role": "head",
+                  "start": 8,
+                  "text": "拟合只覆盖中央区域"
+                }
+              ],
+              "start": 0,
+              "text": "受限于扫描范围，拟合只覆盖中央区域。"
+            },
+            {
+              "end": 17,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "patient",
+                  "start": 8,
+                  "text": "拟合"
+                },
+                {
+                  "end": 13,
+                  "role": "event",
+                  "start": 11,
+                  "text": "覆盖"
+                },
+                {
+                  "end": 17,
+                  "role": "complement",
+                  "start": 13,
+                  "text": "中央区域"
+                }
+              ],
+              "slots_complete": true,
+              "start": 8,
+              "text": "拟合只覆盖中央区域",
+              "voice": "nonagentive"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "80b121feb80812fe573f57a6569e33650054ea2956272bf6724d15d27a7b2583",
+          "version": 6
+        },
+        "id": "light",
+        "label": "Light",
+        "text": "受限于扫描范围，拟合只覆盖中央区域。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "0b1a2d8e3bbae0f6e47fc46d8820d40b66f9e910bc62731d17c027d085ee3560",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "limitation",
+              "parts": [
+                {
+                  "end": 24,
+                  "start": 0,
+                  "text": "由于扫描范围的限制，拟合的覆盖范围仅为中央区域。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 24,
+              "kind": "link",
+              "relation": "cause",
+              "slots": [
+                {
+                  "end": 9,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "由于扫描范围的限制"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 10,
+                  "text": "拟合的覆盖范围仅为中央区域"
+                }
+              ],
+              "start": 0,
+              "text": "由于扫描范围的限制，拟合的覆盖范围仅为中央区域。"
+            },
+            {
+              "end": 23,
+              "form": "copular",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 17,
+                  "role": "patient",
+                  "start": 10,
+                  "text": "拟合的覆盖范围"
+                },
+                {
+                  "end": 19,
+                  "role": "event",
+                  "start": 18,
+                  "text": "为"
+                },
+                {
+                  "end": 23,
+                  "role": "complement",
+                  "start": 19,
+                  "text": "中央区域"
+                }
+              ],
+              "slots_complete": true,
+              "start": 10,
+              "text": "拟合的覆盖范围仅为中央区域",
+              "voice": "nonagentive"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "0b1a2d8e3bbae0f6e47fc46d8820d40b66f9e910bc62731d17c027d085ee3560",
+          "version": 6
+        },
+        "id": "medium",
+        "label": "Medium",
+        "text": "由于扫描范围的限制，拟合的覆盖范围仅为中央区域。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "11b2f2e6eca0a90faf6eb91646e75d1059271c3c17653bc654182d4a2d155e25",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "limitation",
+              "parts": [
+                {
+                  "end": 18,
+                  "start": 0,
+                  "text": "扫描范围的限制使拟合仅覆盖中央区域。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 18,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 7,
+                  "role": "agent",
+                  "start": 0,
+                  "text": "扫描范围的限制"
+                },
+                {
+                  "end": 8,
+                  "role": "event",
+                  "start": 7,
+                  "text": "使"
+                },
+                {
+                  "end": 17,
+                  "role": "complement",
+                  "start": 8,
+                  "text": "拟合仅覆盖中央区域"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "扫描范围的限制使拟合仅覆盖中央区域。",
+              "voice": "active"
+            },
+            {
+              "end": 18,
+              "kind": "link",
+              "relation": "complement",
+              "slots": [
+                {
+                  "end": 8,
+                  "role": "head",
+                  "start": 7,
+                  "text": "使"
+                },
+                {
+                  "end": 17,
+                  "role": "dependent",
+                  "start": 8,
+                  "text": "拟合仅覆盖中央区域"
+                }
+              ],
+              "start": 0,
+              "text": "扫描范围的限制使拟合仅覆盖中央区域。"
+            },
+            {
+              "end": 17,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "patient",
+                  "start": 8,
+                  "text": "拟合"
+                },
+                {
+                  "end": 13,
+                  "role": "event",
+                  "start": 11,
+                  "text": "覆盖"
+                },
+                {
+                  "end": 17,
+                  "role": "complement",
+                  "start": 13,
+                  "text": "中央区域"
+                }
+              ],
+              "slots_complete": true,
+              "start": 8,
+              "text": "拟合仅覆盖中央区域",
+              "voice": "nonagentive"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "11b2f2e6eca0a90faf6eb91646e75d1059271c3c17653bc654182d4a2d155e25",
+          "version": 6
+        },
+        "id": "bold",
+        "label": "Bold",
+        "text": "扫描范围的限制使拟合仅覆盖中央区域。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "6b150b733f0345c90619e676c11bc7c3a2d297b5c2d22709f0af4560000e7efd",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "limitation",
+              "parts": [
+                {
+                  "end": 18,
+                  "start": 0,
+                  "text": "受限于扫描范围，拟合仅覆盖中央区域。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 7,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "event",
+                  "start": 0,
+                  "text": "受限"
+                },
+                {
+                  "end": 7,
+                  "role": "complement",
+                  "start": 3,
+                  "text": "扫描范围"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "受限于扫描范围",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 18,
+              "kind": "link",
+              "relation": "cause",
+              "slots": [
+                {
+                  "end": 7,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "受限于扫描范围"
+                },
+                {
+                  "end": 17,
+                  "role": "head",
+                  "start": 8,
+                  "text": "拟合仅覆盖中央区域"
+                }
+              ],
+              "start": 0,
+              "text": "受限于扫描范围，拟合仅覆盖中央区域。"
+            },
+            {
+              "end": 17,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "patient",
+                  "start": 8,
+                  "text": "拟合"
+                },
+                {
+                  "end": 13,
+                  "role": "event",
+                  "start": 11,
+                  "text": "覆盖"
+                },
+                {
+                  "end": 17,
+                  "role": "complement",
+                  "start": 13,
+                  "text": "中央区域"
+                }
+              ],
+              "slots_complete": true,
+              "start": 8,
+              "text": "拟合仅覆盖中央区域",
+              "voice": "nonagentive"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "6b150b733f0345c90619e676c11bc7c3a2d297b5c2d22709f0af4560000e7efd",
+          "version": 6
+        },
+        "id": "keep",
+        "label": "Keep original",
+        "text": "受限于扫描范围，拟合仅覆盖中央区域。"
+      }
+    ],
+    "edit_scope": {
+      "before_text": "受限于扫描范围，拟合仅覆盖中央区域。",
+      "keep_original_id": "keep",
+      "sentence_ids": [
+        "S002"
+      ]
+    },
+    "learning_context": {
+      "role": "detail",
+      "section": "methods"
+    },
+    "round_id": "fixture-probe"
+  }
+}

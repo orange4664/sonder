@@ -1,0 +1,451 @@
+{
+  "training": {
+    "round_id": "shared-training",
+    "learning_context": {
+      "section": "methods",
+      "role": "detail"
+    },
+    "candidates": [
+      {
+        "id": "active",
+        "label": "active",
+        "text": "研究者清洗并干燥样品。",
+        "analysis": {
+          "units": []
+        },
+        "grammar": {
+          "version": 7,
+          "frames": [
+            {
+              "kind": "expression",
+              "text": "研究者清洗并干燥样品",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "研究者"
+                },
+                {
+                  "role": "event",
+                  "text": "清洗"
+                },
+                {
+                  "role": "patient",
+                  "text": "样品"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "研究者清洗并干燥样品",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "研究者"
+                },
+                {
+                  "role": "event",
+                  "text": "干燥"
+                },
+                {
+                  "role": "patient",
+                  "text": "样品"
+                }
+              ]
+            }
+          ]
+        },
+        "relation_coverage": {
+          "version": 1,
+          "expressions": [
+            {
+              "frame": 0,
+              "incoming_complete": true,
+              "incoming_links": []
+            },
+            {
+              "frame": 1,
+              "incoming_complete": true,
+              "incoming_links": []
+            }
+          ],
+          "links": []
+        }
+      },
+      {
+        "id": "passive",
+        "label": "passive",
+        "text": "样品由研究者清洗并干燥。",
+        "analysis": {
+          "units": []
+        },
+        "grammar": {
+          "version": 7,
+          "frames": [
+            {
+              "kind": "expression",
+              "text": "样品由研究者清洗并干燥",
+              "form": "verbal",
+              "voice": "passive",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "研究者"
+                },
+                {
+                  "role": "event",
+                  "text": "清洗"
+                },
+                {
+                  "role": "patient",
+                  "text": "样品"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "样品由研究者清洗并干燥",
+              "form": "verbal",
+              "voice": "passive",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "研究者"
+                },
+                {
+                  "role": "event",
+                  "text": "干燥"
+                },
+                {
+                  "role": "patient",
+                  "text": "样品"
+                }
+              ]
+            }
+          ]
+        },
+        "relation_coverage": {
+          "version": 1,
+          "expressions": [
+            {
+              "frame": 0,
+              "incoming_complete": true,
+              "incoming_links": []
+            },
+            {
+              "frame": 1,
+              "incoming_complete": true,
+              "incoming_links": []
+            }
+          ],
+          "links": []
+        }
+      }
+    ]
+  },
+  "query": {
+    "round_id": "shared-query",
+    "learning_context": {
+      "section": "methods",
+      "role": "detail"
+    },
+    "candidates": [
+      {
+        "id": "active",
+        "label": "active",
+        "text": "算法识别并标记异常峰。",
+        "analysis": {
+          "units": []
+        },
+        "grammar": {
+          "version": 7,
+          "frames": [
+            {
+              "kind": "expression",
+              "text": "算法识别并标记异常峰",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "算法"
+                },
+                {
+                  "role": "event",
+                  "text": "识别"
+                },
+                {
+                  "role": "patient",
+                  "text": "异常峰"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "算法识别并标记异常峰",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "算法"
+                },
+                {
+                  "role": "event",
+                  "text": "标记"
+                },
+                {
+                  "role": "patient",
+                  "text": "异常峰"
+                }
+              ]
+            }
+          ]
+        },
+        "relation_coverage": {
+          "version": 1,
+          "expressions": [
+            {
+              "frame": 0,
+              "incoming_complete": true,
+              "incoming_links": []
+            },
+            {
+              "frame": 1,
+              "incoming_complete": true,
+              "incoming_links": []
+            }
+          ],
+          "links": []
+        }
+      },
+      {
+        "id": "passive",
+        "label": "passive",
+        "text": "异常峰由算法识别并标记。",
+        "analysis": {
+          "units": []
+        },
+        "grammar": {
+          "version": 7,
+          "frames": [
+            {
+              "kind": "expression",
+              "text": "异常峰由算法识别并标记",
+              "form": "verbal",
+              "voice": "passive",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "算法"
+                },
+                {
+                  "role": "event",
+                  "text": "识别"
+                },
+                {
+                  "role": "patient",
+                  "text": "异常峰"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "异常峰由算法识别并标记",
+              "form": "verbal",
+              "voice": "passive",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "算法"
+                },
+                {
+                  "role": "event",
+                  "text": "标记"
+                },
+                {
+                  "role": "patient",
+                  "text": "异常峰"
+                }
+              ]
+            }
+          ]
+        },
+        "relation_coverage": {
+          "version": 1,
+          "expressions": [
+            {
+              "frame": 0,
+              "incoming_complete": true,
+              "incoming_links": []
+            },
+            {
+              "frame": 1,
+              "incoming_complete": true,
+              "incoming_links": []
+            }
+          ],
+          "links": []
+        }
+      }
+    ]
+  },
+  "temporal": {
+    "round_id": "shared-temporal",
+    "learning_context": {
+      "section": "methods",
+      "role": "detail"
+    },
+    "candidates": [
+      {
+        "id": "keep",
+        "label": "Keep original",
+        "text": "在温度稳定后，装置加热并压缩气体。",
+        "analysis": {
+          "units": []
+        },
+        "grammar": {
+          "version": 7,
+          "frames": [
+            {
+              "kind": "expression",
+              "text": "在温度稳定后",
+              "form": "adjectival",
+              "voice": "nonagentive",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "patient",
+                  "text": "温度"
+                },
+                {
+                  "role": "event",
+                  "text": "稳定"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "装置加热并压缩气体",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "装置"
+                },
+                {
+                  "role": "event",
+                  "text": "加热"
+                },
+                {
+                  "role": "patient",
+                  "text": "气体"
+                }
+              ]
+            },
+            {
+              "kind": "expression",
+              "text": "装置加热并压缩气体",
+              "form": "verbal",
+              "voice": "active",
+              "slots_complete": true,
+              "slots": [
+                {
+                  "role": "agent",
+                  "text": "装置"
+                },
+                {
+                  "role": "event",
+                  "text": "压缩"
+                },
+                {
+                  "role": "patient",
+                  "text": "气体"
+                }
+              ]
+            },
+            {
+              "kind": "link",
+              "relation": "temporal",
+              "text": "在温度稳定后，装置加热并压缩气体",
+              "slots": [
+                {
+                  "role": "dependent",
+                  "text": "在温度稳定后"
+                },
+                {
+                  "role": "head",
+                  "text": "加热"
+                }
+              ]
+            },
+            {
+              "kind": "link",
+              "relation": "temporal",
+              "text": "在温度稳定后，装置加热并压缩气体",
+              "slots": [
+                {
+                  "role": "dependent",
+                  "text": "在温度稳定后"
+                },
+                {
+                  "role": "head",
+                  "text": "压缩"
+                }
+              ]
+            }
+          ]
+        },
+        "relation_coverage": {
+          "version": 1,
+          "expressions": [
+            {
+              "frame": 0,
+              "incoming_complete": true,
+              "incoming_links": []
+            },
+            {
+              "frame": 1,
+              "incoming_complete": true,
+              "incoming_links": [
+                3
+              ]
+            },
+            {
+              "frame": 2,
+              "incoming_complete": true,
+              "incoming_links": [
+                4
+              ]
+            }
+          ],
+          "links": [
+            {
+              "frame": 3,
+              "head_kind": "event",
+              "head_expression": 1
+            },
+            {
+              "frame": 4,
+              "head_kind": "event",
+              "head_expression": 2
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

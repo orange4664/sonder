@@ -1,19 +1,23 @@
 # Cross-paper style memory
 
-Preferences the author has confirmed as lasting **beyond one paper** (`global` scope). This file is loaded at the start of every new session (Phase 0) and is the only thing carried between papers.
+This bootstrap template contains no confirmed author preferences. Add an entry
+only when the author explicitly says it applies beyond the current paper.
+Record the applicable author, language and scope, plus the confirmation source
+and date. Preserve unrelated confirmed entries when updating this file.
 
-Each entry records how it was confirmed. Prefer a short, scoped entry to a broad rule — in doubt, keep it in the paper's own `style-profile.md` instead.
+## Confirmed standing preferences
 
-```markdown
-# Author — <name>
-
-## Confirmed global preferences
-| Preference | Confirmed by | When |
-|------------|--------------|------|
-| Use "we", never passive | author | <date, paper> |
-| "utilize" is banned — use "use" | author | <date, paper> |
+| Preference | Author / language / scope | Confirmation source and date |
+|------------|---------------------------|------------------------------|
 
 ## Notes
-- <only global, author-confirmed preferences live here>
-- This file is NOT an archive of every edit — it holds only what the author wants everywhere, always.
-```
+
+- Empty rows, placeholders and illustrative examples are not confirmations.
+- Keep local choices and hypotheses in the paper's own workspace; an explicitly
+  excluded choice supplies no profile evidence.
+- At a new paper, seed only the applicable confirmed entries. Each paper keeps
+  its own phrase/structure weights and author exemplars in `preference.db`.
+- The legacy `global` command changes option-label weights in one database;
+  it does not save this text profile.
+- A later explicit standing correction updates the matching entry. A local
+  exception does not silently replace a standing preference.

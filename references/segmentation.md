@@ -35,3 +35,13 @@ Number sentences in reading order: `S001`, `S002`, … Record for each id enough
 ## Practical approach
 
 You don't need a perfect parser. Read the working copy, walk it section by section, and build the sentence list as you go, applying the skip rules above. When a chunk is ambiguous (a sentence wrapped around an inline equation, say), keep the equation inline and treat the surrounding words as the editable sentence — offer rewrites of the prose around the math, never the math itself.
+
+## Stable IDs after editing
+
+Once review begins, preserve the source map. A merge keeps its lead ID and marks
+consumed neighbors `merged_into:<lead-id>` with the same decision round. Do not
+reuse a consumed ID for a later original sentence. The next cursor is the first
+still-pending original ID. A split keeps its source ID attached to the full
+replacement span. See [edit-scope.md](edit-scope.md) for comparable candidates,
+whole-span application and recovery. Blueprint changes during review must retain
+the old ID/decision history rather than silently resegment completed choices.

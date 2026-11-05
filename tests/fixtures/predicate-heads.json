@@ -1,0 +1,1570 @@
+{
+  "provenance": "Synthetic S003 independently written/annotated in sonder-forgetting-generalization-20261028. Original broad-head annotation is frozen; targeted variant keeps every expression and non-temporal link, separates its explicitly qualified coordinated predicates. Not a linguistic gold standard or real author feedback.",
+  "original": [
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "5b8dd1e460eef0a657eb8d803e38496b80872fbbf525c5407946fb76d8903c4c",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 38,
+                "start": 0,
+                "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 54,
+                "start": 39,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 9,
+                "role": "dependent",
+                "start": 0,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 14,
+                "text": "读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "start": 0,
+            "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+          },
+          {
+            "end": 8,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 6,
+                "role": "patient",
+                "start": 3,
+                "text": "暗电流"
+              },
+              {
+                "end": 8,
+                "role": "event",
+                "start": 6,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 1,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 26,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 14,
+                "role": "agent",
+                "start": 10,
+                "text": "采集程序"
+              },
+              {
+                "end": 16,
+                "role": "event",
+                "start": 14,
+                "text": "读取"
+              },
+              {
+                "end": 26,
+                "role": "patient",
+                "start": 16,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 10,
+            "text": "采集程序读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 23,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 18,
+                "role": "event",
+                "start": 16,
+                "text": "标记"
+              },
+              {
+                "end": 23,
+                "role": "complement",
+                "start": 19,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 16,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 26,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 23,
+                "role": "dependent",
+                "start": 16,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 26,
+                "role": "head",
+                "start": 24,
+                "text": "通道"
+              }
+            ],
+            "start": 16,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 38,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 30,
+                "role": "event",
+                "start": 28,
+                "text": "保留"
+              },
+              {
+                "end": 38,
+                "role": "patient",
+                "start": 30,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 27,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 34,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 34,
+                "role": "event",
+                "start": 32,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 30,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 34,
+                "role": "dependent",
+                "start": 30,
+                "text": "此前记录"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 35,
+                "text": "异常值"
+              }
+            ],
+            "start": 30,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 54,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 42,
+                "role": "agent",
+                "start": 39,
+                "text": "该步骤"
+              },
+              {
+                "end": 45,
+                "role": "event",
+                "start": 43,
+                "text": "改变"
+              },
+              {
+                "end": 54,
+                "role": "patient",
+                "start": 45,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 39,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "5b8dd1e460eef0a657eb8d803e38496b80872fbbf525c5407946fb76d8903c4c",
+        "version": 6
+      },
+      "id": "fronted",
+      "label": "状语前置",
+      "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    },
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "0e1ed5f6eadfc0199740883f8191861b36c6b9ad542a120b9e41ef5e46028308",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 38,
+                "start": 0,
+                "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 54,
+                "start": 39,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 26,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 4,
+                "role": "agent",
+                "start": 0,
+                "text": "采集程序"
+              },
+              {
+                "end": 16,
+                "role": "event",
+                "start": 14,
+                "text": "读取"
+              },
+              {
+                "end": 26,
+                "role": "patient",
+                "start": 16,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 0,
+            "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 13,
+                "role": "dependent",
+                "start": 4,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 14,
+                "text": "读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "start": 0,
+            "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值"
+          },
+          {
+            "end": 12,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 10,
+                "role": "patient",
+                "start": 7,
+                "text": "暗电流"
+              },
+              {
+                "end": 12,
+                "role": "event",
+                "start": 10,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 5,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 23,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 18,
+                "role": "event",
+                "start": 16,
+                "text": "标记"
+              },
+              {
+                "end": 23,
+                "role": "complement",
+                "start": 19,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 16,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 26,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 23,
+                "role": "dependent",
+                "start": 16,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 26,
+                "role": "head",
+                "start": 24,
+                "text": "通道"
+              }
+            ],
+            "start": 16,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 38,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 30,
+                "role": "event",
+                "start": 28,
+                "text": "保留"
+              },
+              {
+                "end": 38,
+                "role": "patient",
+                "start": 30,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 27,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 34,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 34,
+                "role": "event",
+                "start": 32,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 30,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 34,
+                "role": "dependent",
+                "start": 30,
+                "text": "此前记录"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 35,
+                "text": "异常值"
+              }
+            ],
+            "start": 30,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 54,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 42,
+                "role": "agent",
+                "start": 39,
+                "text": "该步骤"
+              },
+              {
+                "end": 45,
+                "role": "event",
+                "start": 43,
+                "text": "改变"
+              },
+              {
+                "end": 54,
+                "role": "patient",
+                "start": 45,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 39,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "0e1ed5f6eadfc0199740883f8191861b36c6b9ad542a120b9e41ef5e46028308",
+        "version": 6
+      },
+      "id": "embedded",
+      "label": "主语后嵌入",
+      "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    },
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "3bc1efab00641269377f5bf782bc13a1da0d18105623564afe5843ffacd6199d",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 37,
+                "start": 0,
+                "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 53,
+                "start": 38,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 7,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 5,
+                "role": "patient",
+                "start": 2,
+                "text": "暗电流"
+              },
+              {
+                "end": 7,
+                "role": "event",
+                "start": 5,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 0,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 37,
+            "kind": "link",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 8,
+                "role": "dependent",
+                "start": 0,
+                "text": "完成暗电流校正后"
+              },
+              {
+                "end": 37,
+                "role": "head",
+                "start": 13,
+                "text": "读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "start": 0,
+            "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+          },
+          {
+            "end": 25,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 13,
+                "role": "agent",
+                "start": 9,
+                "text": "采集程序"
+              },
+              {
+                "end": 15,
+                "role": "event",
+                "start": 13,
+                "text": "读取"
+              },
+              {
+                "end": 25,
+                "role": "patient",
+                "start": 15,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 9,
+            "text": "采集程序读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 22,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 17,
+                "role": "event",
+                "start": 15,
+                "text": "标记"
+              },
+              {
+                "end": 22,
+                "role": "complement",
+                "start": 18,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 15,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 25,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 22,
+                "role": "dependent",
+                "start": 15,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 25,
+                "role": "head",
+                "start": 23,
+                "text": "通道"
+              }
+            ],
+            "start": 15,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 37,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 29,
+                "role": "event",
+                "start": 27,
+                "text": "保留"
+              },
+              {
+                "end": 37,
+                "role": "patient",
+                "start": 29,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 26,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 33,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 33,
+                "role": "event",
+                "start": 31,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 29,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 37,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 33,
+                "role": "dependent",
+                "start": 29,
+                "text": "此前记录"
+              },
+              {
+                "end": 37,
+                "role": "head",
+                "start": 34,
+                "text": "异常值"
+              }
+            ],
+            "start": 29,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 53,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 41,
+                "role": "agent",
+                "start": 38,
+                "text": "该步骤"
+              },
+              {
+                "end": 44,
+                "role": "event",
+                "start": 42,
+                "text": "改变"
+              },
+              {
+                "end": 53,
+                "role": "patient",
+                "start": 44,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 38,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "3bc1efab00641269377f5bf782bc13a1da0d18105623564afe5843ffacd6199d",
+        "version": 6
+      },
+      "id": "keep",
+      "label": "Keep original",
+      "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    }
+  ],
+  "targeted": [
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "5b8dd1e460eef0a657eb8d803e38496b80872fbbf525c5407946fb76d8903c4c",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 38,
+                "start": 0,
+                "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 54,
+                "start": 39,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 8,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 6,
+                "role": "patient",
+                "start": 3,
+                "text": "暗电流"
+              },
+              {
+                "end": 8,
+                "role": "event",
+                "start": 6,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 1,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 26,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 14,
+                "role": "agent",
+                "start": 10,
+                "text": "采集程序"
+              },
+              {
+                "end": 16,
+                "role": "event",
+                "start": 14,
+                "text": "读取"
+              },
+              {
+                "end": 26,
+                "role": "patient",
+                "start": 16,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 10,
+            "text": "采集程序读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 23,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 18,
+                "role": "event",
+                "start": 16,
+                "text": "标记"
+              },
+              {
+                "end": 23,
+                "role": "complement",
+                "start": 19,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 16,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 26,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 23,
+                "role": "dependent",
+                "start": 16,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 26,
+                "role": "head",
+                "start": 24,
+                "text": "通道"
+              }
+            ],
+            "start": 16,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 38,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 30,
+                "role": "event",
+                "start": 28,
+                "text": "保留"
+              },
+              {
+                "end": 38,
+                "role": "patient",
+                "start": 30,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 27,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 34,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 34,
+                "role": "event",
+                "start": 32,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 30,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 34,
+                "role": "dependent",
+                "start": 30,
+                "text": "此前记录"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 35,
+                "text": "异常值"
+              }
+            ],
+            "start": 30,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 54,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 42,
+                "role": "agent",
+                "start": 39,
+                "text": "该步骤"
+              },
+              {
+                "end": 45,
+                "role": "event",
+                "start": 43,
+                "text": "改变"
+              },
+              {
+                "end": 54,
+                "role": "patient",
+                "start": 45,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 39,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 26,
+            "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 9,
+                "role": "dependent",
+                "start": 0,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 14,
+                "end": 16,
+                "text": "读取"
+              }
+            ]
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 38,
+            "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 9,
+                "role": "dependent",
+                "start": 0,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 28,
+                "end": 30,
+                "text": "保留"
+              }
+            ]
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "5b8dd1e460eef0a657eb8d803e38496b80872fbbf525c5407946fb76d8903c4c",
+        "version": 6
+      },
+      "id": "fronted",
+      "label": "状语前置",
+      "text": "在完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    },
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "0e1ed5f6eadfc0199740883f8191861b36c6b9ad542a120b9e41ef5e46028308",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 38,
+                "start": 0,
+                "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 54,
+                "start": 39,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 26,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 4,
+                "role": "agent",
+                "start": 0,
+                "text": "采集程序"
+              },
+              {
+                "end": 16,
+                "role": "event",
+                "start": 14,
+                "text": "读取"
+              },
+              {
+                "end": 26,
+                "role": "patient",
+                "start": 16,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 0,
+            "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 12,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 10,
+                "role": "patient",
+                "start": 7,
+                "text": "暗电流"
+              },
+              {
+                "end": 12,
+                "role": "event",
+                "start": 10,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 5,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 23,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 18,
+                "role": "event",
+                "start": 16,
+                "text": "标记"
+              },
+              {
+                "end": 23,
+                "role": "complement",
+                "start": 19,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 16,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 26,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 23,
+                "role": "dependent",
+                "start": 16,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 26,
+                "role": "head",
+                "start": 24,
+                "text": "通道"
+              }
+            ],
+            "start": 16,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 38,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 30,
+                "role": "event",
+                "start": 28,
+                "text": "保留"
+              },
+              {
+                "end": 38,
+                "role": "patient",
+                "start": 30,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 27,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 34,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 34,
+                "role": "event",
+                "start": 32,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 30,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 38,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 34,
+                "role": "dependent",
+                "start": 30,
+                "text": "此前记录"
+              },
+              {
+                "end": 38,
+                "role": "head",
+                "start": 35,
+                "text": "异常值"
+              }
+            ],
+            "start": 30,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 54,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 42,
+                "role": "agent",
+                "start": 39,
+                "text": "该步骤"
+              },
+              {
+                "end": 45,
+                "role": "event",
+                "start": 43,
+                "text": "改变"
+              },
+              {
+                "end": 54,
+                "role": "patient",
+                "start": 45,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 39,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 26,
+            "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 13,
+                "role": "dependent",
+                "start": 4,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 14,
+                "end": 16,
+                "text": "读取"
+              }
+            ]
+          },
+          {
+            "kind": "link",
+            "start": 4,
+            "end": 38,
+            "text": "在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 13,
+                "role": "dependent",
+                "start": 4,
+                "text": "在完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 28,
+                "end": 30,
+                "text": "保留"
+              }
+            ]
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "0e1ed5f6eadfc0199740883f8191861b36c6b9ad542a120b9e41ef5e46028308",
+        "version": 6
+      },
+      "id": "embedded",
+      "label": "主语后嵌入",
+      "text": "采集程序在完成暗电流校正后，读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    },
+    {
+      "analysis": {
+        "source": "writing-model",
+        "text_sha256": "3bc1efab00641269377f5bf782bc13a1da0d18105623564afe5843ffacd6199d",
+        "units": [
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 37,
+                "start": 0,
+                "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值"
+              }
+            ],
+            "polarity": "affirmative"
+          },
+          {
+            "certainty": "asserted",
+            "move": "method",
+            "parts": [
+              {
+                "end": 53,
+                "start": 38,
+                "text": "该步骤不改变原始文件中的时间戳"
+              }
+            ],
+            "polarity": "negative"
+          }
+        ],
+        "version": 2
+      },
+      "grammar": {
+        "frames": [
+          {
+            "end": 7,
+            "form": "nominalized",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 5,
+                "role": "patient",
+                "start": 2,
+                "text": "暗电流"
+              },
+              {
+                "end": 7,
+                "role": "event",
+                "start": 5,
+                "text": "校正"
+              }
+            ],
+            "slots_complete": true,
+            "start": 0,
+            "text": "完成暗电流校正",
+            "voice": "active"
+          },
+          {
+            "end": 25,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 13,
+                "role": "agent",
+                "start": 9,
+                "text": "采集程序"
+              },
+              {
+                "end": 15,
+                "role": "event",
+                "start": 13,
+                "text": "读取"
+              },
+              {
+                "end": 25,
+                "role": "patient",
+                "start": 15,
+                "text": "标记为“保留”的通道"
+              }
+            ],
+            "slots_complete": true,
+            "start": 9,
+            "text": "采集程序读取标记为“保留”的通道",
+            "voice": "active"
+          },
+          {
+            "end": 22,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 17,
+                "role": "event",
+                "start": 15,
+                "text": "标记"
+              },
+              {
+                "end": 22,
+                "role": "complement",
+                "start": 18,
+                "text": "“保留”"
+              }
+            ],
+            "slots_complete": true,
+            "start": 15,
+            "text": "标记为“保留”",
+            "voice": "passive"
+          },
+          {
+            "end": 25,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 22,
+                "role": "dependent",
+                "start": 15,
+                "text": "标记为“保留”"
+              },
+              {
+                "end": 25,
+                "role": "head",
+                "start": 23,
+                "text": "通道"
+              }
+            ],
+            "start": 15,
+            "text": "标记为“保留”的通道"
+          },
+          {
+            "end": 37,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 29,
+                "role": "event",
+                "start": 27,
+                "text": "保留"
+              },
+              {
+                "end": 37,
+                "role": "patient",
+                "start": 29,
+                "text": "此前记录的异常值"
+              }
+            ],
+            "slots_complete": true,
+            "start": 26,
+            "text": "并保留此前记录的异常值",
+            "voice": "active"
+          },
+          {
+            "end": 33,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 33,
+                "role": "event",
+                "start": 31,
+                "text": "记录"
+              }
+            ],
+            "slots_complete": true,
+            "start": 29,
+            "text": "此前记录",
+            "voice": "passive"
+          },
+          {
+            "end": 37,
+            "kind": "link",
+            "relation": "relative",
+            "slots": [
+              {
+                "end": 33,
+                "role": "dependent",
+                "start": 29,
+                "text": "此前记录"
+              },
+              {
+                "end": 37,
+                "role": "head",
+                "start": 34,
+                "text": "异常值"
+              }
+            ],
+            "start": 29,
+            "text": "此前记录的异常值"
+          },
+          {
+            "end": 53,
+            "form": "verbal",
+            "kind": "expression",
+            "slots": [
+              {
+                "end": 41,
+                "role": "agent",
+                "start": 38,
+                "text": "该步骤"
+              },
+              {
+                "end": 44,
+                "role": "event",
+                "start": 42,
+                "text": "改变"
+              },
+              {
+                "end": 53,
+                "role": "patient",
+                "start": 44,
+                "text": "原始文件中的时间戳"
+              }
+            ],
+            "slots_complete": true,
+            "start": 38,
+            "text": "该步骤不改变原始文件中的时间戳",
+            "voice": "active"
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 25,
+            "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 8,
+                "role": "dependent",
+                "start": 0,
+                "text": "完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 13,
+                "end": 15,
+                "text": "读取"
+              }
+            ]
+          },
+          {
+            "kind": "link",
+            "start": 0,
+            "end": 37,
+            "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值",
+            "relation": "temporal",
+            "slots": [
+              {
+                "end": 8,
+                "role": "dependent",
+                "start": 0,
+                "text": "完成暗电流校正后"
+              },
+              {
+                "role": "head",
+                "start": 27,
+                "end": 29,
+                "text": "保留"
+              }
+            ]
+          }
+        ],
+        "source": "writing-model",
+        "text_sha256": "3bc1efab00641269377f5bf782bc13a1da0d18105623564afe5843ffacd6199d",
+        "version": 6
+      },
+      "id": "keep",
+      "label": "Keep original",
+      "text": "完成暗电流校正后，采集程序读取标记为“保留”的通道，并保留此前记录的异常值；该步骤不改变原始文件中的时间戳。"
+    }
+  ]
+}

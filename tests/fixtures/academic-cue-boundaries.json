@@ -1,0 +1,17 @@
+[
+  {"text": "我们采用可见光测量薄膜透射率。", "moves": ["method"], "forbidden": ["conclusion"]},
+  {"text": "可见光谱覆盖所测波段。", "moves": [], "forbidden": ["conclusion"]},
+  {"text": "本实验记录可见度的变化。", "moves": [], "forbidden": ["conclusion"]},
+  {"text": "测试显示器的刷新率为 60 Hz。", "moves": [], "forbidden": ["result"]},
+  {"text": "显示屏记录了 12 组数值。", "moves": [], "forbidden": ["result"]},
+  {"text": "样品通过率为 90%。", "moves": [], "forbidden": ["method"]},
+  {"text": "通过率随温度下降。", "moves": [], "forbidden": ["method"]},
+  {"text": "材料利用率提高了 2%。", "moves": [], "forbidden": ["method"]},
+  {"text": "可见样品尚未达到热平衡。", "moves": ["conclusion", "limitation"], "forbidden": []},
+  {"text": "由此可见样品稳定。", "moves": ["conclusion"], "forbidden": []},
+  {"text": "仪器显示样品温度为 25 ℃。", "moves": ["result"], "forbidden": []},
+  {"text": "结果显示样品稳定。", "moves": ["result"], "forbidden": []},
+  {"text": "我们通过实验测量流量，结果表明样品稳定。", "moves": ["method", "result"], "forbidden": []},
+  {"text": "我们利用连续采样测量信号。", "moves": ["method"], "forbidden": []},
+  {"text": "我们通过显示器记录可见光谱，结果显示峰位不变。", "moves": ["method", "result"], "forbidden": ["conclusion"]}
+]

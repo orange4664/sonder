@@ -1,0 +1,1921 @@
+{
+  "provenance": "Two actual installed-Skill writers; outputs/sonder-link-order-20261027/writer-{a,b}; synthetic protocols; original annotations retained.",
+  "writers": {
+    "a": {
+      "training": {
+        "candidates": [
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "bf1c448a70b7f81816637994ed89fb20d1326a873e54be3ec84340ee2e18ad73",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 12,
+                      "start": 0,
+                      "text": "温度稳定后，系统开始采样"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 13,
+                      "text": "如果噪声超标，系统重复测量"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 4,
+                  "form": "adjectival",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 2,
+                      "role": "patient",
+                      "start": 0,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 4,
+                      "role": "event",
+                      "start": 2,
+                      "text": "稳定"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "温度稳定",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 5,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "温度稳定后"
+                    },
+                    {
+                      "end": 12,
+                      "role": "head",
+                      "start": 6,
+                      "text": "系统开始采样"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "温度稳定后，系统开始采样"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 8,
+                      "role": "agent",
+                      "start": 6,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 10,
+                      "role": "event",
+                      "start": 8,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 12,
+                      "role": "complement",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 6,
+                  "text": "系统开始采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 10,
+                      "role": "head",
+                      "start": 8,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 12,
+                      "role": "dependent",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "start": 8,
+                  "text": "开始采样"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 12,
+                      "role": "event",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 10,
+                  "text": "采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 13,
+                      "text": "如果噪声超标"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "系统重复测量"
+                    }
+                  ],
+                  "start": 13,
+                  "text": "如果噪声超标，系统重复测量"
+                },
+                {
+                  "end": 19,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 17,
+                      "role": "patient",
+                      "start": 15,
+                      "text": "噪声"
+                    },
+                    {
+                      "end": 19,
+                      "role": "event",
+                      "start": 17,
+                      "text": "超标"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 15,
+                  "text": "噪声超标",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "form": "unknown",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "测量"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 20,
+                  "text": "系统重复测量",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "bf1c448a70b7f81816637994ed89fb20d1326a873e54be3ec84340ee2e18ad73",
+              "version": 6
+            },
+            "id": "forward",
+            "label": "Keep original",
+            "text": "温度稳定后，系统开始采样。如果噪声超标，系统重复测量。"
+          },
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "0c08d41b5aad7201682fa183aacc32454307264d0c4a4d9423550e8af24b1bbc",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 13,
+                      "start": 0,
+                      "text": "如果噪声超标，系统重复测量"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 14,
+                      "text": "温度稳定后，系统开始采样"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 6,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "如果噪声超标"
+                    },
+                    {
+                      "end": 13,
+                      "role": "head",
+                      "start": 7,
+                      "text": "系统重复测量"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "如果噪声超标，系统重复测量"
+                },
+                {
+                  "end": 6,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 4,
+                      "role": "patient",
+                      "start": 2,
+                      "text": "噪声"
+                    },
+                    {
+                      "end": 6,
+                      "role": "event",
+                      "start": 4,
+                      "text": "超标"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 2,
+                  "text": "噪声超标",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 13,
+                  "form": "unknown",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 9,
+                      "role": "agent",
+                      "start": 7,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 13,
+                      "role": "event",
+                      "start": 11,
+                      "text": "测量"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 7,
+                  "text": "系统重复测量",
+                  "voice": "active"
+                },
+                {
+                  "end": 18,
+                  "form": "adjectival",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 16,
+                      "role": "patient",
+                      "start": 14,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 18,
+                      "role": "event",
+                      "start": 16,
+                      "text": "稳定"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "温度稳定",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 14,
+                      "text": "温度稳定后"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "系统开始采样"
+                    }
+                  ],
+                  "start": 14,
+                  "text": "温度稳定后，系统开始采样"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 26,
+                      "role": "complement",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 20,
+                  "text": "系统开始采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 24,
+                      "role": "head",
+                      "start": 22,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 26,
+                      "role": "dependent",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "start": 22,
+                  "text": "开始采样"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 24,
+                  "text": "采样",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "0c08d41b5aad7201682fa183aacc32454307264d0c4a4d9423550e8af24b1bbc",
+              "version": 6
+            },
+            "id": "reverse",
+            "label": "Reverse order",
+            "text": "如果噪声超标，系统重复测量。温度稳定后，系统开始采样。"
+          }
+        ],
+        "edit_scope": {
+          "before_text": "温度稳定后，系统开始采样。如果噪声超标，系统重复测量。",
+          "keep_original_id": "forward",
+          "sentence_ids": [
+            "S001",
+            "S002"
+          ]
+        },
+        "learning_context": {
+          "role": "detail",
+          "section": "methods"
+        },
+        "metadata": {
+          "annotation_timing": "All semantic labels were prepared before rank; no peer annotations were consulted.",
+          "approval_status": "pending",
+          "case_id": "training",
+          "context_basis": "完整段落是设备采样协议：第一条规定开始采样的时间定位，第二条规定噪声超标时的重复操作。每条连同其时间/条件修饰整体记为 method，asserted 指协议确定陈述，不声称稳定、超标、采样或测量已发生。共同范围主职能为方法细节，沿用已给定 methods/detail。",
+          "grammar_basis": "温度稳定为性质谓词；稳定后提供 temporal 关系。开始作为选择采样活动的阶段谓词，保留采样的内层事件和 complement link，隐含施事不补入字面槽。噪声超标有可识别谓词，作为 condition 的从属部分单独保留 expression。系统重复测量明确为主动操作；重复测量在此可读为重复式动词短语，也可读为支持动词加事件名词，form 保留 unknown，agent 系统和内容事件 测量可确定。此局部形式歧义不删除整个表达；没有将重复另造一个独立事件以增加框架。",
+          "locator": {
+            "following_text": "全部记录均保留时间戳。",
+            "paragraph": 1,
+            "preceding_text": "",
+            "scope_end": 27,
+            "scope_start": 0,
+            "working_file": "synthetic-audit/sonder-link-order-20261027/writer-a/training/working/paper.txt"
+          },
+          "scope_note": "时间/条件与所辖操作保留在同一个 analysis unit；两个顶层规则之间不添加先后、因果、转折或从属 link。候选是作者要求的两个精确文本；第三句范围外。"
+        },
+        "round_id": "8acbbc70-663f-44f8-8ffb-e24c17db0808"
+      },
+      "query": {
+        "candidates": [
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "84837e00c9e16d6e6e62007eed1282d21f117a6ac5dbc6a3d9305c23374d7629",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 12,
+                      "start": 0,
+                      "text": "电流归零后，装置读取电压"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 13,
+                      "text": "如果温度越界，装置暂停记录"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 4,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 2,
+                      "role": "patient",
+                      "start": 0,
+                      "text": "电流"
+                    },
+                    {
+                      "end": 4,
+                      "role": "event",
+                      "start": 2,
+                      "text": "归零"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "电流归零",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 5,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "电流归零后"
+                    },
+                    {
+                      "end": 12,
+                      "role": "head",
+                      "start": 6,
+                      "text": "装置读取电压"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "电流归零后，装置读取电压"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 8,
+                      "role": "agent",
+                      "start": 6,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 10,
+                      "role": "event",
+                      "start": 8,
+                      "text": "读取"
+                    },
+                    {
+                      "end": 12,
+                      "role": "patient",
+                      "start": 10,
+                      "text": "电压"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 6,
+                  "text": "装置读取电压",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 13,
+                      "text": "如果温度越界"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "装置暂停记录"
+                    }
+                  ],
+                  "start": 13,
+                  "text": "如果温度越界，装置暂停记录"
+                },
+                {
+                  "end": 19,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 17,
+                      "role": "patient",
+                      "start": 15,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 19,
+                      "role": "event",
+                      "start": 17,
+                      "text": "越界"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 15,
+                  "text": "温度越界",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 26,
+                      "role": "complement",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 20,
+                  "text": "装置暂停记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 24,
+                      "role": "head",
+                      "start": 22,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 26,
+                      "role": "dependent",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "start": 22,
+                  "text": "暂停记录"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 24,
+                  "text": "记录",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "84837e00c9e16d6e6e62007eed1282d21f117a6ac5dbc6a3d9305c23374d7629",
+              "version": 6
+            },
+            "id": "forward",
+            "label": "Keep original",
+            "text": "电流归零后，装置读取电压。如果温度越界，装置暂停记录。"
+          },
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "eda3822c7ab175c127fadcbb580eac44db7f2881a6ba8026faee6d96dcc2255a",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 13,
+                      "start": 0,
+                      "text": "如果温度越界，装置暂停记录"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 14,
+                      "text": "电流归零后，装置读取电压"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 6,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "如果温度越界"
+                    },
+                    {
+                      "end": 13,
+                      "role": "head",
+                      "start": 7,
+                      "text": "装置暂停记录"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "如果温度越界，装置暂停记录"
+                },
+                {
+                  "end": 6,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 4,
+                      "role": "patient",
+                      "start": 2,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 6,
+                      "role": "event",
+                      "start": 4,
+                      "text": "越界"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 2,
+                  "text": "温度越界",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 13,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 9,
+                      "role": "agent",
+                      "start": 7,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 11,
+                      "role": "event",
+                      "start": 9,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 13,
+                      "role": "complement",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 7,
+                  "text": "装置暂停记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 11,
+                      "role": "head",
+                      "start": 9,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 13,
+                      "role": "dependent",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "start": 9,
+                  "text": "暂停记录"
+                },
+                {
+                  "end": 13,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 13,
+                      "role": "event",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 11,
+                  "text": "记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 18,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 16,
+                      "role": "patient",
+                      "start": 14,
+                      "text": "电流"
+                    },
+                    {
+                      "end": 18,
+                      "role": "event",
+                      "start": 16,
+                      "text": "归零"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "电流归零",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 14,
+                      "text": "电流归零后"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "装置读取电压"
+                    }
+                  ],
+                  "start": 14,
+                  "text": "电流归零后，装置读取电压"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "读取"
+                    },
+                    {
+                      "end": 26,
+                      "role": "patient",
+                      "start": 24,
+                      "text": "电压"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 20,
+                  "text": "装置读取电压",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "eda3822c7ab175c127fadcbb580eac44db7f2881a6ba8026faee6d96dcc2255a",
+              "version": 6
+            },
+            "id": "reverse",
+            "label": "Reverse order",
+            "text": "如果温度越界，装置暂停记录。电流归零后，装置读取电压。"
+          }
+        ],
+        "edit_scope": {
+          "before_text": "电流归零后，装置读取电压。如果温度越界，装置暂停记录。",
+          "keep_original_id": "forward",
+          "sentence_ids": [
+            "S001",
+            "S002"
+          ]
+        },
+        "learning_context": {
+          "role": "detail",
+          "section": "methods"
+        },
+        "metadata": {
+          "annotation_timing": "All semantic labels were prepared before rank; no peer annotations were consulted.",
+          "approval_status": "pending",
+          "case_id": "query",
+          "context_basis": "完整段落是设备记录协议：第一条规定电流归零后读取电压，第二条规定温度越界时暂停记录。两条各自是带时间或条件限定的操作规定，因此每条作为完整 method unit，asserted 只表示该规则被确定陈述。共同范围提供方法细节，使用给定 methods/detail，不从句子排序或分数推断 context。",
+          "grammar_basis": "电流归零是非施事的状态变化，归零后为 temporal；读取电压的装置、读取、电压角色直接可见。温度越界是条件中的可识别变化，保留其 expression；如果标明 condition。暂停选择明确的记录活动，外层 event 暂停/complement 记录，内层 event 记录及 complement link 单列；内层施事没有独立字面证据，不造重复角色。本文根据协议语境能确定这些形式及角色，未为了与 training 一致而添加或去掉 unknown。",
+          "locator": {
+            "following_text": "全部原始数据均按采集时间保存。",
+            "paragraph": 1,
+            "preceding_text": "",
+            "scope_end": 27,
+            "scope_start": 0,
+            "working_file": "synthetic-audit/sonder-link-order-20261027/writer-a/query/working/paper.txt"
+          },
+          "scope_note": "时间/条件与所辖操作保留在同一个 analysis unit；两个顶层规则之间不添加先后、因果、转折或从属 link。候选是作者要求的两个精确文本；第三句范围外。"
+        },
+        "round_id": "42083e06-5d2c-4335-b828-67c4e9afa3cd"
+      }
+    },
+    "b": {
+      "training": {
+        "candidates": [
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "bf1c448a70b7f81816637994ed89fb20d1326a873e54be3ec84340ee2e18ad73",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 12,
+                      "start": 0,
+                      "text": "温度稳定后，系统开始采样"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 13,
+                      "text": "如果噪声超标，系统重复测量"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 4,
+                  "form": "adjectival",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 2,
+                      "role": "patient",
+                      "start": 0,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 4,
+                      "role": "event",
+                      "start": 2,
+                      "text": "稳定"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "温度稳定",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 8,
+                      "role": "agent",
+                      "start": 6,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 10,
+                      "role": "event",
+                      "start": 8,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 12,
+                      "role": "complement",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "温度稳定后，系统开始采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 5,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "温度稳定后"
+                    },
+                    {
+                      "end": 12,
+                      "role": "head",
+                      "start": 6,
+                      "text": "系统开始采样"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "温度稳定后，系统开始采样"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 10,
+                      "role": "head",
+                      "start": 8,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 12,
+                      "role": "dependent",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "start": 6,
+                  "text": "系统开始采样"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 12,
+                      "role": "event",
+                      "start": 10,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 10,
+                  "text": "采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "测量"
+                    }
+                  ],
+                  "slots_complete": false,
+                  "start": 13,
+                  "text": "如果噪声超标，系统重复测量",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 13,
+                      "text": "如果噪声超标"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "系统重复测量"
+                    }
+                  ],
+                  "start": 13,
+                  "text": "如果噪声超标，系统重复测量"
+                },
+                {
+                  "end": 19,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 17,
+                      "role": "patient",
+                      "start": 15,
+                      "text": "噪声"
+                    },
+                    {
+                      "end": 19,
+                      "role": "event",
+                      "start": 17,
+                      "text": "超标"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 15,
+                  "text": "噪声超标",
+                  "voice": "nonagentive"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "bf1c448a70b7f81816637994ed89fb20d1326a873e54be3ec84340ee2e18ad73",
+              "version": 6
+            },
+            "id": "forward",
+            "label": "Keep original",
+            "text": "温度稳定后，系统开始采样。如果噪声超标，系统重复测量。"
+          },
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "0c08d41b5aad7201682fa183aacc32454307264d0c4a4d9423550e8af24b1bbc",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 13,
+                      "start": 0,
+                      "text": "如果噪声超标，系统重复测量"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 14,
+                      "text": "温度稳定后，系统开始采样"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 13,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 9,
+                      "role": "agent",
+                      "start": 7,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 13,
+                      "role": "event",
+                      "start": 11,
+                      "text": "测量"
+                    }
+                  ],
+                  "slots_complete": false,
+                  "start": 0,
+                  "text": "如果噪声超标，系统重复测量",
+                  "voice": "active"
+                },
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 6,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "如果噪声超标"
+                    },
+                    {
+                      "end": 13,
+                      "role": "head",
+                      "start": 7,
+                      "text": "系统重复测量"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "如果噪声超标，系统重复测量"
+                },
+                {
+                  "end": 6,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 4,
+                      "role": "patient",
+                      "start": 2,
+                      "text": "噪声"
+                    },
+                    {
+                      "end": 6,
+                      "role": "event",
+                      "start": 4,
+                      "text": "超标"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 2,
+                  "text": "噪声超标",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 18,
+                  "form": "adjectival",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 16,
+                      "role": "patient",
+                      "start": 14,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 18,
+                      "role": "event",
+                      "start": 16,
+                      "text": "稳定"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "温度稳定",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "系统"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 26,
+                      "role": "complement",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "温度稳定后，系统开始采样",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 14,
+                      "text": "温度稳定后"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "系统开始采样"
+                    }
+                  ],
+                  "start": 14,
+                  "text": "温度稳定后，系统开始采样"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 24,
+                      "role": "head",
+                      "start": 22,
+                      "text": "开始"
+                    },
+                    {
+                      "end": 26,
+                      "role": "dependent",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "start": 20,
+                  "text": "系统开始采样"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "采样"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 24,
+                  "text": "采样",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "0c08d41b5aad7201682fa183aacc32454307264d0c4a4d9423550e8af24b1bbc",
+              "version": 6
+            },
+            "id": "reverse",
+            "label": "Reverse",
+            "text": "如果噪声超标，系统重复测量。温度稳定后，系统开始采样。"
+          }
+        ],
+        "edit_scope": {
+          "before_text": "温度稳定后，系统开始采样。如果噪声超标，系统重复测量。",
+          "keep_original_id": "forward",
+          "sentence_ids": [
+            "S001",
+            "S002"
+          ]
+        },
+        "learning_context": {
+          "role": "detail",
+          "section": "methods"
+        },
+        "metadata": {
+          "case_id": "training",
+          "locator": {
+            "paragraph_index": 1,
+            "prefix": "",
+            "suffix": "全部记录均保留时间戳。",
+            "working_file": "synthetic-audit/sonder-link-order-20261027/writer-b/training-revision/working/training.md"
+          },
+          "status": "pending_author_choice"
+        },
+        "round_id": "c8d20fc8-1477-4999-a9e3-58eee09945e4"
+      },
+      "query": {
+        "candidates": [
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "84837e00c9e16d6e6e62007eed1282d21f117a6ac5dbc6a3d9305c23374d7629",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 12,
+                      "start": 0,
+                      "text": "电流归零后，装置读取电压"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 13,
+                      "text": "如果温度越界，装置暂停记录"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 4,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 2,
+                      "role": "patient",
+                      "start": 0,
+                      "text": "电流"
+                    },
+                    {
+                      "end": 4,
+                      "role": "event",
+                      "start": 2,
+                      "text": "归零"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "电流归零",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 12,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 8,
+                      "role": "agent",
+                      "start": 6,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 10,
+                      "role": "event",
+                      "start": 8,
+                      "text": "读取"
+                    },
+                    {
+                      "end": 12,
+                      "role": "patient",
+                      "start": 10,
+                      "text": "电压"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "电流归零后，装置读取电压",
+                  "voice": "active"
+                },
+                {
+                  "end": 12,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 5,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "电流归零后"
+                    },
+                    {
+                      "end": 12,
+                      "role": "head",
+                      "start": 6,
+                      "text": "装置读取电压"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "电流归零后，装置读取电压"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 26,
+                      "role": "complement",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 13,
+                  "text": "如果温度越界，装置暂停记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 13,
+                      "text": "如果温度越界"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "装置暂停记录"
+                    }
+                  ],
+                  "start": 13,
+                  "text": "如果温度越界，装置暂停记录"
+                },
+                {
+                  "end": 19,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 17,
+                      "role": "patient",
+                      "start": 15,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 19,
+                      "role": "event",
+                      "start": 17,
+                      "text": "越界"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 15,
+                  "text": "温度越界",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 24,
+                      "role": "head",
+                      "start": 22,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 26,
+                      "role": "dependent",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "start": 20,
+                  "text": "装置暂停记录"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 26,
+                      "role": "event",
+                      "start": 24,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 24,
+                  "text": "记录",
+                  "voice": "active"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "84837e00c9e16d6e6e62007eed1282d21f117a6ac5dbc6a3d9305c23374d7629",
+              "version": 6
+            },
+            "id": "forward",
+            "label": "Keep original",
+            "text": "电流归零后，装置读取电压。如果温度越界，装置暂停记录。"
+          },
+          {
+            "analysis": {
+              "source": "writing-model",
+              "text_sha256": "eda3822c7ab175c127fadcbb580eac44db7f2881a6ba8026faee6d96dcc2255a",
+              "units": [
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 13,
+                      "start": 0,
+                      "text": "如果温度越界，装置暂停记录"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                },
+                {
+                  "certainty": "asserted",
+                  "move": "method",
+                  "parts": [
+                    {
+                      "end": 26,
+                      "start": 14,
+                      "text": "电流归零后，装置读取电压"
+                    }
+                  ],
+                  "polarity": "affirmative"
+                }
+              ],
+              "version": 2
+            },
+            "grammar": {
+              "frames": [
+                {
+                  "end": 13,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 9,
+                      "role": "agent",
+                      "start": 7,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 11,
+                      "role": "event",
+                      "start": 9,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 13,
+                      "role": "complement",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 0,
+                  "text": "如果温度越界，装置暂停记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "condition",
+                  "slots": [
+                    {
+                      "end": 6,
+                      "role": "dependent",
+                      "start": 0,
+                      "text": "如果温度越界"
+                    },
+                    {
+                      "end": 13,
+                      "role": "head",
+                      "start": 7,
+                      "text": "装置暂停记录"
+                    }
+                  ],
+                  "start": 0,
+                  "text": "如果温度越界，装置暂停记录"
+                },
+                {
+                  "end": 6,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 4,
+                      "role": "patient",
+                      "start": 2,
+                      "text": "温度"
+                    },
+                    {
+                      "end": 6,
+                      "role": "event",
+                      "start": 4,
+                      "text": "越界"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 2,
+                  "text": "温度越界",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 13,
+                  "kind": "link",
+                  "relation": "complement",
+                  "slots": [
+                    {
+                      "end": 11,
+                      "role": "head",
+                      "start": 9,
+                      "text": "暂停"
+                    },
+                    {
+                      "end": 13,
+                      "role": "dependent",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "start": 7,
+                  "text": "装置暂停记录"
+                },
+                {
+                  "end": 13,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 13,
+                      "role": "event",
+                      "start": 11,
+                      "text": "记录"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 11,
+                  "text": "记录",
+                  "voice": "active"
+                },
+                {
+                  "end": 18,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 16,
+                      "role": "patient",
+                      "start": 14,
+                      "text": "电流"
+                    },
+                    {
+                      "end": 18,
+                      "role": "event",
+                      "start": 16,
+                      "text": "归零"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "电流归零",
+                  "voice": "nonagentive"
+                },
+                {
+                  "end": 26,
+                  "form": "verbal",
+                  "kind": "expression",
+                  "slots": [
+                    {
+                      "end": 22,
+                      "role": "agent",
+                      "start": 20,
+                      "text": "装置"
+                    },
+                    {
+                      "end": 24,
+                      "role": "event",
+                      "start": 22,
+                      "text": "读取"
+                    },
+                    {
+                      "end": 26,
+                      "role": "patient",
+                      "start": 24,
+                      "text": "电压"
+                    }
+                  ],
+                  "slots_complete": true,
+                  "start": 14,
+                  "text": "电流归零后，装置读取电压",
+                  "voice": "active"
+                },
+                {
+                  "end": 26,
+                  "kind": "link",
+                  "relation": "temporal",
+                  "slots": [
+                    {
+                      "end": 19,
+                      "role": "dependent",
+                      "start": 14,
+                      "text": "电流归零后"
+                    },
+                    {
+                      "end": 26,
+                      "role": "head",
+                      "start": 20,
+                      "text": "装置读取电压"
+                    }
+                  ],
+                  "start": 14,
+                  "text": "电流归零后，装置读取电压"
+                }
+              ],
+              "source": "writing-model",
+              "text_sha256": "eda3822c7ab175c127fadcbb580eac44db7f2881a6ba8026faee6d96dcc2255a",
+              "version": 6
+            },
+            "id": "reverse",
+            "label": "Reverse",
+            "text": "如果温度越界，装置暂停记录。电流归零后，装置读取电压。"
+          }
+        ],
+        "edit_scope": {
+          "before_text": "电流归零后，装置读取电压。如果温度越界，装置暂停记录。",
+          "keep_original_id": "forward",
+          "sentence_ids": [
+            "S001",
+            "S002"
+          ]
+        },
+        "learning_context": {
+          "role": "detail",
+          "section": "methods"
+        },
+        "metadata": {
+          "case_id": "query",
+          "locator": {
+            "paragraph_index": 1,
+            "prefix": "",
+            "suffix": "全部原始数据均按采集时间保存。",
+            "working_file": "synthetic-audit/sonder-link-order-20261027/writer-b/query-revision/working/query.md"
+          },
+          "status": "pending_author_choice"
+        },
+        "round_id": "919bc3c3-c370-4fd4-8f49-84f97b95d2d1"
+      }
+    }
+  }
+}

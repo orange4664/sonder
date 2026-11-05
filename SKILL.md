@@ -1,7 +1,6 @@
 ---
 name: sonder
 description: Revise an academic paper paragraph by paragraph with the author, stripping AI writing tells (stop-slop) while preserving the author's own voice. Use this whenever the user wants to polish, tighten, edit, proofread, or "de-slop" a paper, manuscript, draft, abstract, or thesis chapter — especially when they want careful interactive revision rather than a one-shot rewrite. Trigger on requests like "help me revise my paper", "clean up my draft", "make my writing sound less AI", "go through my abstract line by line", or when they hand over a .tex/.md/.txt paper to improve.
-argument-hint: <path-to-paper (.tex / .md / .txt)>
 allowed-tools:
   - Read
   - Write
@@ -12,177 +11,470 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-<!-- Tool naming: `AskUserQuestion` is the Claude Code tool name. On other hosts
-     (e.g. DeepSeek/DSH) the equivalent is `ask_user_question`; substitute the
-     host's name for the author-choice tool wherever this file says AskUserQuestion. -->
+# Sonder
 
+Revise a `.tex`, `.md` or `.txt` paper paragraph by paragraph with its author.
+Read the whole paper, agree on its paragraph blueprint, then revise sentences.
+The author chooses both the structure and every wording change. Learned preferences
+are soft, contextual guidance; keep the author's voice and scientific meaning.
 
-# Hardworking Paper Writer
+Use the host's author-choice tool (`AskUserQuestion` in Claude Code, or its local
+equivalent). Show actual proposed text and a short explanation. Technical
+annotations, diagnostics and successful setup details stay internal unless asked.
 
-Revise a paper one paragraph at a time, with the author in the driver's seat.
+## Read references when their step needs them
 
-The job has two halves that pull against each other. Stop-slop removes the patterns that make prose read as machine-written. But applied bluntly, those same rules sand every writer down to the same flat surface — and a paper's voice is part of what makes it worth reading. So the real task is narrower: cut the slop, keep the human. That is why this skill is slow and interactive instead of a one-shot rewrite. You are not imposing a house style; you are helping *this* author say what *they* mean, more sharply, in their own register.
+| Step or situation | Reference |
+|---|---|
+| Seed the workspace, blueprint and decision log | [templates](references/templates.md) |
+| Segment after the agreed blueprint | [segmentation](references/segmentation.md) |
+| Prepare the first candidate round | [binding](references/annotation-binding.md), [edit scope](references/edit-scope.md), [rhetorical analysis](references/structure-analysis.md), [grammar](references/grammar-frames.md), [relation coverage](references/relation-learning.md); read these once, then revisit relevant cases |
+| Choose section/role; interpret steering or a standing preference | Relevant sections of [preference learning](references/preference-learning.md): the context is the sentence's job, feedback scope, explicit exclusion and cross-paper persistence |
+| Configure Python/models/MCP, diagnose fallback, or update an installation | [runtime setup](references/runtime-setup.md); use [MCP](references/mcp.md) when that transport is available |
+| Investigate engine behavior, cache/schema migration or scoring | [maintenance contract](references/learning-engine-contract.md) |
 
-Two commitments follow from that:
+The latter two rows are conditional. Ordinary writing uses the configured runtime;
+it does not require loading implementation details or installing a parser.
 
-- **The author decides every sentence.** You propose; they dispose. Never edit prose without an explicit choice from them. And the author decides the *shape* too — the paragraph structure is theirs to set, not yours to impose.
-- **You get better as you go — within limits.** Every choice the author makes, and every option they reject, tells you something about their taste. Fold it back in so later suggestions need less correction than early ones. But *not all feedback is the same kind of signal*, and the hard part is telling them apart. See [Learning the author's preferences](references/preference-learning.md): feedback arrives at one of three scopes, and only the right scope becomes a lasting rule. The failure mode this exists to stop is over-generalization — one "don't write it like that" morphing into a ban that silently applies to every later sentence, even ones where the author would happily accept it.
+## Writing judgment
 
-The flow has three distinct beats: **read it all first, then agree on what each paragraph is for, then work one paragraph at a time.** That order matters. You cannot judge a paragraph's main thread before you've read the whole paper — the point of a paragraph is often only visible from the paragraphs around it.
+Preserve claims, evidence strength, negation, necessary conditions, attribution,
+numbers, units, formulas, citations, labels and defined terms. Never add a result
+or turn a plan, hypothesis or selected clause into a completed finding.
 
-## The stop-slop principles
+Remove filler, unsupported emphasis, vague claims and mechanically repeated
+structures when they actually impair the passage. Prefer concrete subjects and
+clear verbs; active voice often helps, but respect disciplinary usage. Vary rhythm
+without forcing every sentence into one pattern. Keep the argument's necessary
+density and the author's register. A clean sentence is a valid outcome: recommend
+keeping it instead of inventing a fault.
 
-These are the patterns you are hunting for. Apply them as judgment, not as a checklist to satisfy — a sentence can break a "rule" and still be the best version.
+Also read as an outside researcher. Track terms, symbols and acronyms used before
+their introduction. Check each paragraph's main claim, supporting progression and
+connection to the next; handle structural problems through the blueprint and
+paragraph checkpoints, with author approval.
 
-1. **Cut filler.** Remove throat-clearing openers ("It is important to note that"), emphasis crutches ("very", "really", "significantly"), and adverbs that do no work.
-2. **Break formulaic structures.** Avoid binary contrasts ("not X, but Y"), negative listings, dramatic one-word fragments, rhetorical question setups, and false agency.
-3. **Prefer active voice.** Find the actor and make them the subject. "We measured" beats "measurements were taken". (Academic convention sometimes wants passive — respect the author's field norms.)
-4. **Be specific.** Replace vague declaratives ("the results are significant") with the actual claim. Watch lazy extremes ("always", "never", "every") standing in for a real bound.
-5. **Put the reader in the room.** Concrete beats abstract. Name the mechanism, the number, the object.
-6. **Vary rhythm.** Mix sentence lengths. Two items often beat three. Avoid em-dashes if the author doesn't already use them.
-7. **Trust the reader.** State findings directly. Drop the softening and the over-explanation.
-8. **Cut quotables.** If a sentence sounds engineered to be tweeted, rewrite it plainly.
-9. **Write for the reader, not the insider.** Unnecessary jargon is a tell of its own kind — it signals an author writing to prove membership rather than to be understood. Translate any term that has a plain equivalent, expand each acronym on first use, and unpack notation a reader can't be assumed to carry in their head. When jargon is genuinely load-bearing — a field term with no substitute — keep it, but make the sentence around it do the work of carrying someone from one subfield over. Density the argument needs, keep; density that only flatters the writer, cut.
+## 0. Locate the paper and prepare or resume
 
-Deeper reference phrasing lives in the stop-slop plugin if you need examples or the full phrase lists: `plugins/stop-slop/skills/stop-slop/references/` (`phrases.md`, `structures.md`, `examples.md`). Read them only when a specific case is unclear. (This skill is self-contained and ships its own rules; if the plugin isn't present, the principles above are sufficient.)
+Resolve this installation's `scripts/check_runtime.py` and `library/learn.py` to
+absolute paths. Before opening a paper database or changing the revision workspace:
 
-For papers, add three domain constraints on top: **never alter meaning** (a tighter sentence that changes a claim is a failure), **leave math, citations, labels, and defined terms untouched**, and **match field register** — a Nature letter and a math proof slop differently.
+<!-- sonder-command:runtime -->
+```bash
+python3 -I "<runtime-check-path>"
+```
 
-## Two things the sentence loop can miss
+Require `status:compatible`, then use its absolute `engine_path` as `<learn-path>`.
+If the checker is missing or fails, report the incompatible installation and pause
+workspace edits/learning. Do not bypass it by dropping annotations or switching
+to an unrelated engine. This verifies code support, not semantic accuracy.
+The current checker requires schema 9, context-key version 2 and
+`injective_context_keys`. If a paper reports `ambiguous legacy context`, preserve
+its database and saved context; read the [upgrade guidance](references/runtime-setup.md).
+Do not rename the context or clear history to bypass the error.
 
-Fixing one line at a time is necessary but not sufficient. Two defects only surface when you lift your eyes from the single sentence — keep both in view throughout.
+Use absolute paths in every fresh shell. If dependencies are in a virtual
+environment, use that environment's absolute `bin/python` for both checker and
+engine; do not resolve its symlink to the base interpreter. Keep an explicitly
+configured `off` backend and explain that structural learning is disabled.
 
-**Read as the reader, not the author.** The author knows what they mean; the reader has only the words on the page. Every so often, drop the editor's hat and read a passage cold — as someone who knows the field but has never seen this paper. Where would they stall? An undefined term, a pronoun with no clear antecedent, a claim that quietly assumes three steps the author skipped, an acronym introduced fifty lines ago — and, most often, a concept that gets *used* well before it gets *defined*. Forward references like that are nearly invisible to the author, who has the whole paper in their head, and nearly fatal to the reader, who is meeting the term for the first time with no anchor. Track where each key term, symbol, and acronym is first introduced versus where it's first used; when use precedes definition, flag it. Each of those sentences is locally fine, which is exactly why a sentence-by-sentence pass walks right past them. This reader's-eye reading is the lens behind principle 9, and it is the test for whether a rewrite actually helped: not "is this cleaner?" but "does this land for someone who isn't already inside the author's head?"
+Find the source path from the user's request; ask for it if absent. For a folder,
+prefer `.tex`, then `.md`. If only PDF is available, explain that this workflow
+needs an editable text source; use an available conversion workflow if requested.
 
-**Mind the paragraph, not just the sentence.** A paragraph has a shape, and in most academic prose that shape is general-to-specific: the opening sentence states the paragraph's claim, and everything after it earns that claim. Check that each paragraph's opener actually announces what the paragraph delivers; a buried or missing topic sentence is one of the most common structural defects, and no sentence-level edit will fix it. Then check that paragraphs connect: each should pick up where the last left off (given-new flow), so the reader never wonders why this paragraph follows that one. Watch both failure modes — a missing transition that drops the reader, and its opposite, a mechanical connective ("Furthermore", "Moreover", "Additionally") propped in place of a real logical link (that one is also slop). These are supra-sentence problems; you handle them at paragraph boundaries — and, in this skill, *before* you ever touch a sentence, in the blueprint.
-
-## Phase 0 — Set up the workspace
-
-1. **Locate the paper** from `$ARGUMENTS`. If none is given, ask for the path. Accept `.tex`, `.md`, `.txt`. For a folder, prefer `.tex`, then `.md`. If only a PDF exists, tell the author this skill needs a text source and point them at `paper-review-helper` to convert it first.
-
-2. **Check for an existing revision** before creating anything. If `<paper-stem>-revision/` already exists with a `revision-log.md`, this is a resume — skip to "Resuming" below.
-
-3. **Build the workspace** as a sibling of the paper:
+If `<paper-stem>-revision/` already has `revision-log.md`, follow **Resuming**.
+Otherwise create a sibling workspace:
 
 ```text
 <paper-stem>-revision/
-├── original/            # untouched backup — never edited
-│   └── <paper filename>
-├── working/             # the live copy you edit in place
-│   └── <paper filename>
-├── blueprint.md         # the agreed shape from Phase 2
-├── revision-log.md      # every sentence: id, status, original, chosen, fixes
-├── style-profile.md     # model of the author's voice for THIS paper
-└── preference.db        # soft learning store (SQLite, from library/learn.py)
+  original/<source file>       untouched source backup
+  working/<source file>        live editable copy
+  blueprint.md
+  revision-log.md
+  style-profile.md
+  candidate-inputs/            complete drafts, candidates and saved decisions
+  choice-receipts/             original feedback receipts saved by the engine
+  preference.db               this paper's learning database
 ```
 
-Copy the source into both `original/` and `working/`. From here on, every Edit targets `working/` only. The `original/` copy is the safety net and the basis for the final diff.
+Copy the source into `original/` and `working/`; edit only `working/`. Seed tracking
+files from the templates and tell the author where the workspace is.
 
-4. **Load the cross-paper memory.** Before seeding a fresh profile, read `memory/style-profile.md` (inside this skill's install directory) if it exists. It holds preferences the author has confirmed as lasting beyond one paper. Seed `style-profile.md` from it. This is the only cross-paper carryover — everything else in the workspace profile belongs to this paper and dies with it.
+Before seeding a fresh profile, read this installation's `memory/style-profile.md`
+if present. Carry over only explicitly confirmed entries whose author, language
+and scope apply. Placeholders/examples are not confirmations. This text profile
+is the only cross-paper carryover: ordinary weights and exemplars stay in each
+paper's database and survive resuming that paper.
 
-5. **Seed the tracking files** from the templates in [references/templates.md](references/templates.md). Tell the author the workspace is ready and where it is.
+Initialize this paper's learning policy after resolving its workspace/database:
 
-6. **Resolve the learning engine path once.** Every `python3 -I "$LEARN"` command below refers to `library/learn.py` inside *this skill's install directory*, not the author's paper directory (the paper's cwd will not contain it). Set `LEARN` to that **path only** at the start of the session and reuse it:
-
+<!-- sonder-command:learning_policy -->
 ```bash
-LEARN="$HOME/.claude/skills/sonder/library/learn.py"
+python3 -I "<learn-path>" learning-policy "<db-path>" ensure-adaptive
 ```
 
-`LEARN` must hold just the file path — not `python3 -I ...` — because the commands quote it (`"$LEARN"`) to survive spaces in the path, and a quoted string that contains the interpreter would be looked up as a single executable name and fail. If the skill is installed elsewhere, point `LEARN` at that `library/learn.py` instead. Never run it as a bare relative path from the paper directory.
+Use this on setup and resume. It enables `adaptive-v3` only when unset and
+preserves every saved policy, including `legacy`, `adaptive-v1` and `adaptive-v2`. It saves old weights as a reference once;
+it does not approve text, replay choices or alter the author's original examples.
+Accepted expressions inform a bounded profile; comparable choices teach relative
+preferences. Both remain contextual and decay. Read [adaptive learning](references/adaptive-learning.md)
+only when investigating its scores, policy or migration.
 
-## Phase 1 — Read it all, then profile the voice
+For a workspace already using an older policy, keep that saved setting. Explain
+once that relation-conditioned preference learning requires `adaptive-v3`; if
+the author requests the upgrade, select it explicitly through `learning-policy`
+or the matching MCP call. This preserves native learned weights and old receipts,
+starts the new relation layer empty, and resets only transient correction traces.
+Do not turn a policy change into a sentence approval or replay old decisions.
 
-Do not start editing, and do not start the blueprint, before a full read. You cannot judge a paragraph's main thread without its surrounding argument, and you need the author's baseline voice before you change a word. Read `working/` end to end first.
+## 1. Read the whole paper
 
-While reading, fill in `style-profile.md` from the **existing prose** — but treat the result as a **hypothesis, not a rule set**. These are guesses about the author's voice from their own writing; a real preference only becomes weighted when the author actually confirms or rejects it during revision. An entry the author never confirmed is weak evidence and must not block an otherwise good rewrite. What is written here will be overlapped with the author's actual choices, which are captured in `preference.db` (see [references/preference-learning.md](references/preference-learning.md)). A preference is a **gentle weight** the author's choices have put on a rewrite option in a given context — not a rule that forbids anything. For the initial read, note the voice, but keep it tentatively marked as hypothesis rather than as settled preference.
+Read `working/` end to end before proposing the blueprint or editing prose.
+Record tentative observations about voice in the local style profile, explicitly
+as hypotheses. They must not prohibit otherwise good alternatives.
 
-The cross-paper threshold: a preference becomes lasting **only** when the author states it explicitly as a standing rule ("I always use 'we' in every paper"). That is the single `global` behavior, and it must be earned by an explicit statement, never inferred. Everything else is learned per-context from the author's choices during revision, and dies with this paper.
+Record structure notes in the revision log: each paragraph's topic sentence or
+missing/buried main claim, weak transitions, and a first-use map of terms, symbols
+and acronyms. These are material for the author to consider, not permission to edit.
 
-Also record structure **notes**, as raw material for the blueprint in Phase 2. Do not act on them yet — just note, in `revision-log.md` under a **Structure notes** heading: each paragraph's topic sentence (or "buried"/"missing"), any transition between paragraphs that drops the reader, and a running **first-use map** of key terms, symbols, and acronyms — where each is introduced and whether it's used anywhere earlier. This is the seed you'll bring to the author in Phase 2.
+Only an explicit standing preference becomes a cross-paper profile entry. Save
+its wording, applicable author/language/scope and confirmation source/date in the
+installation's `memory/style-profile.md`, preserving unrelated entries; reflect
+it in this paper's profile too. A later explicit correction updates that entry,
+while a local exception stays local. A preference confirmation does not select a
+pending sentence. Read the persistence procedure in the preference guide when
+making this update; the legacy `global` command is not a substitute.
 
-## Phase 2 — Brainstorm the blueprint
+## 2. Agree on the paragraph blueprint
 
-Now the author decides the shape of the paper before you fix a single sentence. Present the structure you just noted, and agree on what each paragraph is for.
+For each paragraph, propose its main thread in one or two sentences and its
+relationship to neighboring paragraphs. Let the author confirm, revise or disagree.
+They may merge, split, reorder, delete, move or add paragraphs. Flag a change that
+would corrupt the argument, then resolve it with the author.
 
-For every paragraph, propose its **main thread**: one or two sentences stating what this paragraph is meant to accomplish, in the context of the ones around it — what it claims, what it follows from, what it sets up. Then let the author **confirm, revise, or disagree**. This is the author's paper; the blueprint is their call.
+Save the agreed paper orientation, paragraph threads, structural changes and
+first-use map in `blueprint.md`. Only after that agreement, segment against the
+final structure using the segmentation guide. Record stable sentence IDs and total
+count in the log, and tell the author how many prose sentences will be reviewed.
+A later structural change updates the blueprint and affected
+mapping; preserve prior IDs and decision history.
 
-Crucially, **the author can change the structure here.** Allow them to:
+## 3. Work through one paragraph
 
-- **Merge** two paragraphs into one.
-- **Split** one paragraph into two.
-- **Reorder** paragraphs.
-- **Delete** one, or move its content elsewhere.
-- **Add** a paragraph that's missing (e.g. a gap in the argument, a needed definition).
+Read the whole paragraph before its sentences. Test it against its agreed main
+thread. For each unreviewed sentence, show the previous/current/next context and
+judge the actual wording. The loop below keeps meaning, author choice and learning
+in the same saved round.
 
-Do not argue defensively if they propose a structural change the notes suggested otherwise; short of a change that would corrupt the argument (which you should flag once), the author sets the shape. If they reorder or delete paragraphs, update the structure notes to match before moving on.
+### A. Fix context and retrieve author examples
 
-The **output of this phase is the blueprint** — recorded in the workspace (see [references/templates.md](references/templates.md)):
-- the agreed orientation of the paper (one line for the whole piece), and
-- for each paragraph, its main thread, plus any structural change that was made.
-- the first-use map, confirmed here.
+Choose section (`abstract`, `intro`, `methods`, `results`, `discussion`, `conclusion`)
+and role (`topic`, `support`, `transition`, `conclusion`, `detail`, `hedge`) from
+the sentence's job. Read the context definitions in the preference guide once.
+Log the paragraph purpose, primary job, plausible secondary functions and any
+uncertainty before ranking. Use comparable prior decisions consistently. A keyword,
+negative wording, position, annotation label or score must not determine the key.
 
-**Only after the blueprint is finalized do you segment and start editing.** The paragraph structure is settled first; sentence IDs follow it. What counts as a reviewable sentence, and the traps (abbreviations, math, citations, environments), are in [references/segmentation.md](references/segmentation.md). Segment against the *final* blueprint, not the original draft — if the author merged or reordered paragraphs, the sentence order follows the new structure. Record the total count and a sentence-id map in `revision-log.md`, tell the author how many prose sentences there are so they know the scope.
+Save the exact current sentence as a UTF-8 file, preserving every character. Use
+file input; never interpolate manuscript text into shell commands.
 
-## Phase 3 — Revise one paragraph at a time
+<!-- sonder-command:nearest -->
+```bash
+python3 -I "<learn-path>" nearest-file "<db-path>" "<sentence-file>" 3
+```
 
-Work paragraph by paragraph in blueprint order. This is not a continuous crawl over the whole paper — **each paragraph is its own unit: revise it, then pause and confirm with the author before moving on.**
+Append `--text-format markdown` for a sentence from Markdown. Omit it for
+TeX/plain/legacy input; do not infer Markdown from asterisks. Matching compares
+supported formatting-transparent views and returns exact saved author text.
 
-For each paragraph:
+Retrieval searches author examples throughout this paper; it does not filter
+by section/role. Phrase and structure weights are scoped to the saved section/role,
+so an example can be available here even when this context has no learned scores.
 
-**1. Read it as a unit before its sentences.** Put the whole paragraph in view, not just the next line. Check its single claim: does the opening sentence announce it? Does the paragraph earn it? Does it hand off to the next? This is where the blueprint's target for this paragraph gets tested.
+Treat retrieved examples as approved wording in their original contexts. Before
+borrowing rhythm or construction, compare study design, conditions, evidence
+strength, negation/quantifiers and whose verification is described. An example
+about an established cause cannot supply a causal claim for an inconclusive study.
+Use a compatible lower-ranked example, or the local profile if none fits. Similarity
+and a difference in wording do not by themselves establish a style preference.
 
-**2. Loop over its sentences.** For each unreviewed sentence in order. Start by fixing the two context keys for that sentence — the **section** (abstract / intro / methods / results / discussion / conclusion, from where it sits in the blueprint) and the **role** (topic / support / transition / conclusion / detail / hedge, from its job in the paragraph). These are the `context_key` for the preference database, exactly as the input method keys the learning by the text before a phrase.
+### B. Draft alternatives and bind the complete round
 
-**a. Show it in context.** Display the previous sentence (dimmed/as context), the current sentence, and the next sentence. Context prevents you from "fixing" a sentence in a way that breaks the flow into the next claim.
+When rewriting is useful, offer three meaningful levels: Light for minimal repair,
+Medium for a clearer recasting, Bold for a larger restructuring. Keep every version
+faithful to the source. Include Keep original when defensible; recommend it for a
+clean sentence. If a candidate merges neighbors, all candidates, including Keep,
+must cover the same full span. Identify the affected IDs to the author.
 
-**b. Judge it.** Decide which stop-slop patterns, if any, actually apply, and whether the meaning has any fragile parts (a hedge, a precise bound, a defined term) you must preserve. Read it once more as the reader, not the author: is there jargon with a plainer equivalent, an acronym not yet expanded, or a term used here that your first-use map says isn't defined until later? Those are reader-stalls worth fixing even when the sentence is otherwise clean. If the sentence is both clean and clear to an outside reader and in the author's voice, say so plainly and offer to keep it — don't manufacture problems to look busy. A fast "this one's clean, keep it?" is a good outcome. Before judging, pull the author's own voice anchors for this sentence: `python3 -I "$LEARN" nearest <paper>-revision/preference.db "<this sentence>" 3`. The nearest **author** exemplars (sentences the author kept or wrote themselves — see `references/preference-learning.md`) are the ground truth for their voice. If a similar stored sentence exists and this one is close in phrasing, lean toward keeping. If the stored analog differs, that shows what the author prefers. When the sentence opens or closes a paragraph, also weigh its structural job against the blueprint: does the opener announce the paragraph's claim, does the closer hand off to the next paragraph?
+Read the binding, edit-scope, analysis and grammar guides before the first round.
+Prepare a literal-fragment draft with:
 
-**c. Offer three versions as a spectrum.** When a sentence does need work, generate exactly three rewrites at increasing edit distance, each obeying the style-profile and each changing nothing about the meaning:
+- A fresh persisted `round_id` for this decision, reused for retries.
+- Exact `learning_context:{"section":"...","role":"..."}` for every call.
+- `edit_scope`: ordered stable IDs, exact `before_text`, and `keep_original_id`
+  when Keep is offered. All candidates cover this complete span.
+- Root `text_format:"markdown"` for new Markdown rounds. Omit for TeX/plain or
+  existing legacy decisions. This belongs on the whole envelope, not candidate rows.
+- Exact candidate IDs, labels and texts, each with `analysis.units` (v2) and
+  `grammar` frames with explicit `version:7`. Include Keep. Supply
+  `slots_complete` on expressions. Distinct predicates may share the same
+  necessary evidence range and explicit participants; keep their separate event
+  slots. Do not drop shared arguments or pad punctuation to evade a range clash.
+  Preserve the saved version on historical drafts and author decisions.
+- Candidate-level `relation_coverage` (v1), referencing this draft's grammar frame
+  indexes. Review each predicate's complete incoming relations and each link's
+  event/non-event/unknown target using the relation guide. Missing information
+  stays unknown; never fill all predicates as complete mechanically. The binder
+  remaps these indexes and fingerprints the canonical evidence.
 
-- **Light** — minimal touch-up: fix the one clearest tell, leave structure intact.
-- **Medium** — a genuine rewrite of the sentence for clarity and rhythm.
-- **Bold** — rethink the sentence; may merge with a neighbor or recast the framing.
+Use the guides' semantic distinctions. Preserve necessary conditions and nested
+negation; an inner predication can have grammatical form without being asserted
+true. Ground identifiable embedded events and their participants, while ordinary
+names/values remain slots. Unknown attributes and honest abstention are valid;
+do not omit known clauses, duplicate evidence, force certainty, or relabel a
+candidate to improve its score. `complete` is not a semantic certificate.
 
-Before proposing, query the preference database for this `(section, role)` context — `python3 -I "$LEARN" bias <paper>-revision/preference.db <section> <role> Light Medium Bold "Keep original"`. The result tells you the current learned weight of each option here. **Lead with the higher-weighted option but never drop the lower ones.** The strongest recent version can be presented first, but all three plus "Keep original" stay available. Do not obey a rule — obey a soft bias that the author can override in one click. Aim for the three to still differ meaningfully; a near-identical set wastes the choice even if all are in the preferred band.
+Before binding, compare conserved propositions across the alternatives. Keep
+their negation, modality and scope visible at a consistent semantic granularity;
+a new sentence boundary or conditional wrapper must not turn an unchanged
+negative consequence into a wholly affirmative unit. Preserve genuine changes
+in organization and use unknown when scope cannot be separated faithfully.
+See the analysis guide's **Conserved propositions across a round** for examples.
 
-Also query the author's own voice anchors: `python3 -I "$LEARN" nearest <paper>-revision/preference.db "<this sentence>" 3`. Use the top sentence stored as `author` (kept or self-written) as the register you write the three versions IN. These exemplars are the model's ground truth for the author's voice, so the rewrites should read like the author on their best day, not like a generic editor. If no author exemplar is close enough, fall back to the style-profile. The two queries together are the "gets to know you" mechanism: `bias` orders the options, `nearest` sets the register they're written in.
+Use the binder for offsets/hashes instead of writing a binding script per round.
+Disambiguate repeated fragments as documented. Preserve rejected drafts and fix
+their actual problem; do not discard annotations to make validation succeed.
 
-`nearest` has three swappable matchers, selected per-workspace with `python3 -I "$LEARN" backend <paper>-revision/preference.db <ngram|sklearn|embed>`. The default `ngram` is a zero-dependency character 3-gram TF-IDF match. `sklearn` upgrades the TF-IDF; `embed` uses a pretrained sentence-embedding model for semantic similarity. Both optional ones lazily import their library on first use — if the dependency is missing it prints an actionable error rather than silently downgrading. The default requires no install; only turn on `sklearn`/`embed` if the author wants the stronger match and the packages can be installed.
+For the ordinary writing loop, use checked preparation in step C. Binding alone
+remains useful when inspecting annotations without opening the paper database:
 
-**d. Let the author choose** with `AskUserQuestion`. Put the actual rewritten sentence in each option's `label` (so they read the real choice) and use the `description` for the edit level plus what it fixes, e.g. "Medium — drops passive voice and the filler opener." Add a fourth option, **"Keep original"**, whenever the original is defensible. The tool always appends an "Other" choice; that is the author's channel for their own wording or a steering instruction.
+<!-- sonder-command:bind -->
+```bash
+python3 -I "<learn-path>" bind-file "<draft-file>" "<candidate-file>"
+```
 
-**e. Interpret the response:**
+The binder validates and publishes a complete canonical file without overwriting
+a different file. It does not approve a choice, generate the round ID or infer
+meaning. Keep approved files immutable; do not retrofit newer format/version
+fields into historical decisions. See binding guidance for preparing an older,
+genuinely unapproved Markdown pool into a new canonical filename.
 
-- **Picked Light / Medium / Bold / Keep original** → apply that text (Keep original = no edit).
-- **"Other" containing a full sentence** → treat it as their final wording; apply it verbatim. If it's ambiguous whether they meant a final sentence or an instruction, ask once.
-- **"Other" containing an instruction** ("shorter", "keep the citation inline", "less formal", "I like #2 but drop the adverb") → this is steering, not a choice. Generate three new versions guided by it and stay on the same sentence. Then **sort the instruction by scope before it becomes anything lasting** — most steers are for this instance only; only a few are meant to travel. Before generalizing it, confirm with the author (see [Learning the author's preferences](references/preference-learning.md) for the exact rule: feed-forward steering is local, a standing rule is global, and one should never become the other silently).
+### C. Prepare, rank, then ask the author
 
-**f. Apply and log — and store the author's voice.** Edit `working/` to the chosen text (skip if Keep original). Append to `revision-log.md`: the sentence id, original, final text, which version they picked, and the fixes applied. This file is the record of what's been reviewed — keep it current so a resume is exact. **Memorize the sentence as a voice exemplar** when it shows the author's own hand: if they picked "Keep original" (`python3 -I "$LEARN" store <paper>-revision/preference.db author "<sentence>"`), or if they wrote their own wording in "Other" and it became the final text (`... author "<their wording>"`). These stored sentences are what `nearest` retrieves later to anchor the author's voice. Store the author's own register, not a version you impose.
+Bind the draft and rank its exact candidates in one checked call:
 
-**g. Learn — soft, weighted, context-scoped.** Fold the author's choice back into the preference database, the way an input method "gets to know you" (see [references/preference-learning.md](references/preference-learning.md)):
+<!-- sonder-command:prepare -->
+```bash
+python3 -I "<learn-path>" prepare-file "<db-path>" "<section>" "<role>" "<draft-file>" "<candidate-file>" --summary
+```
 
-- **They picked a version** → `python3 -I "$LEARN" record <paper>-revision/preference.db <section> <role> <version>` — a small upward weight on `(section::role, version)`. This is a nudge, not a rule.
-- **They rejected or steered away from a version** → `signal` the same tuple with a small downward weight. **This is a soft dip, never a ban.** The option stays available and can compete back up if the author later prefers it.
-- **They explicitly said "I always want this"** (a standing preference across papers) → only then `global` the option. This is the single thing that behaves like a rule, and it must be earned by an explicit statement, never inferred from one choice.
+Require success and match the returned `binding.output` and `binding.round_id`
+to this saved round. Use its `candidates` for presentation and retain the complete
+canonical file for the later choice. A binding failure stops before ranking;
+do not follow it by ranking an old file left at that path. File existence alone
+does not prove that the new draft succeeded. If ranking fails after publication,
+the valid canonical remains; fix the reported problem and retry the same draft
+and output. A different existing output still requires a new filename.
 
-The difference this makes: one "don't write it that way" no longer scans every later sentence as a prohibition. It just nudges that option down a little in this kind of context, until the author's repeated choices re-shape it. There is **no kill-list and no keep-list** anymore — those were the source of the over-absorption. Everything is a weighted preference that reorders options without removing them.
+To refresh an already validated canonical pool without rebinding, use:
 
-**h. Advance** to the next unreviewed sentence in the paragraph.
+<!-- sonder-command:rank -->
+```bash
+python3 -I "<learn-path>" rank-file "<db-path>" "<section>" "<role>" "<candidate-file>" --summary
+```
 
-**3. Paragraph-level check.** When the paragraph's sentences are done, pause and do a short paragraph-level look — the view the sentence loop can't give you, judged against the blueprint: does this paragraph now deliver what the blueprint said it would? Do its lead and close serve that claim? Does any term land before it's defined, per your first-use map? If something's off (e.g. the paragraph's opener drifted from its purpose, or a needed transition to the next is missing), propose a concrete fix the way you offer sentence edits, let the author choose with `AskUserQuestion`, and log it. **Prune the preference store** here too: `python3 -I "$LEARN" prune <paper>-revision/preference.db` — drop entries that haven't been exercised recently, so the learning stays a tight, current model rather than an accumulating archive.
+Use `--summary` for the normal sentence loop; omit it when inspecting individual
+feature matches. It reduces repeated annotation/match output and is a display
+view: retain the complete saved envelope for every later rank and choice. Never
+feed summary rows back as candidates or strip their omission markers.
 
-**4. Pause and confirm before moving on.** This is the deliberate segmentation point. Tell the author the paragraph is done: the paragraph's id and main thread, what changed, what stayed. Then ask whether to **continue on the next paragraph**, **pause and save** (the log and profile make resuming seamless), or **pause to change something** (a preference, the blueprint, or their own wording). Do not start the next paragraph until they say go. The author can stop anytime; nothing is lost.
+Use the returned order and keep all candidates available. Text scores combine
+phrase and scaled structure contributions; legacy label weights only break equal
+text-score ties. Scores are preference evidence, not correctness or approval.
+Inspect the effective backend and required annotation diagnostics; configured
+`off` and an actual fallback must be reported accurately. With explicit grammar,
+expect `heuristic_template_active:false`. Use runtime setup for diagnostics if
+something is missing or inconsistent. Keep routine successful details internal.
 
-Keep the rhythm humane. The paragraph pause is the natural break — use it, and don't ask "keep going" in between sentences. Progress is sequential and trackable; a resume is exact.
+Show actual rewritten sentences in the author's options, with brief explanations
+of edit level and purpose. Allow Keep and free-text Other. A refresh of this same
+pool after another session's feedback is a read, not another author choice.
+
+### D. Interpret the reply and save the decision
+
+- A selected version approves its exact text. Keep leaves the text unchanged.
+- Other containing a complete final sentence approves that author's exact wording.
+  If it is unclear whether a reply is a final sentence or a steer, clarify once.
+- An instruction such as “shorter” or “use #2 but remove the adverb” is steering.
+  Generate fresh proposals for the same unresolved sentence and ask again; no
+  manuscript edit or feedback yet. Treat the steer as local unless the author
+  explicitly confirms broader scope. Local steering alone is not a learning opt-out.
+
+For new Other wording, bind its analysis/grammar to a separate output using the
+same round ID, then add that candidate to the original complete pool. Retain all
+old alternatives and the original edit scope/Keep reference; do not submit the
+one-candidate temporary file as feedback. For an exact-text Other match within
+this round, reuse the saved annotations, including unknown/absent fields. Changed
+text needs fresh analysis. The binding guide covers temporary Keep-reference handling.
+
+The merged pool now contains **canonical** candidates, including their bound
+fingerprints. Save the complete pool to a new candidate filename; do not send it
+through `bind-file` or `prepare-file` again, or strip its fingerprints to turn it
+back into a draft. To inspect refreshed rankings, validate and rank that file:
+
+<!-- sonder-command:other_rank -->
+```bash
+python3 -I "<learn-path>" rank-file "<db-path>" "<section>" "<role>" "<candidate-file>" --summary
+```
+
+This optional refresh is not another author approval. Keep the complete merged
+file for the choice in step E; a rank summary is never its replacement.
+
+Before editing, save `chosen` and truthful `author_owned`: true only for Keep or
+the author's own wording, false for an adopted generated candidate. An explicit
+request not to learn saves root `learn_from_choice:false` under the same ID.
+Authorship false is not an opt-out. Preserve this intent on recovery, and do not
+use an excluded choice as profile/global preference evidence.
+
+### E. Apply, record once and log
+
+Check the actual working-file location, paragraph and surrounding boundaries;
+the engine validates declared scope, not file placement. Replace the entire
+approved span exactly, or verify no change for Keep. Reconcile an already-applied
+span without repeating it or leaving merged neighbors duplicated.
+
+<!-- sonder-command:choice -->
+```bash
+python3 -I "<learn-path>" choice-file "<db-path>" "<section>" "<role>" "<candidate-file>" --receipt-file "<receipt-file>"
+```
+
+Choose a stable new `<receipt-file>` path for this round inside
+`choice-receipts/`; its parent directory must exist. The engine saves the
+original database receipt atomically and refuses conflicting output files.
+`receipt_file` identifies the saved file; `receipt_file_reused` reports an exact
+reuse. The file's `result` is the original receipt, while a retry's command
+response may report `replayed:true`. It is not proof that the manuscript edit
+or human-readable log is complete.
+
+Require a successful receipt with the saved round ID and `idempotent:true`.
+Ordinary new feedback reports `feedback_applied:true`; an opt-out reports false
+and `author_exemplar:false`, while still recording its editorial receipt. Old
+receipts retain their historical shape. Replay returns the original result
+without another reinforcement. A conflicting payload under an existing ID is an
+error: never invent a new ID merely to bypass it. A later separately confirmed
+redecision uses a new round/file and the then-current source span.
+
+Capture exit status and raw output before parsing it. A logger/parser failure is
+not proof that feedback failed. Inspect the result and retry the same saved
+decision/ID if needed. File export can fail after the database committed; the
+error says feedback may already be recorded. Preserve a conflicting file and,
+if needed, choose a new empty receipt path while keeping the original decision
+and ID. Never trust a sidecar alone as evidence that another database learned.
+Do not additionally call `record`, `signal` or `store-file`;
+`choice-file` already handles this round's learning and author exemplar.
+
+Log the source IDs, locator, exact before/final text, version, fixes, candidate
+path, round ID, saved context, learning intent and saved receipt-file path.
+Use the host's file-writing/editing tool to maintain this readable log and link
+the exported receipt; do not reconstruct receipt JSON in an inline logging
+script. The engine does not rewrite the log for you. Merges use
+one shared decision: keep the lead ID and mark consumed neighbors `merged_into`
+that lead; do not renumber later IDs or learn separately for each member.
+
+Ordinary choices gradually adjust context-local words and structures, with decay
+and later correction. Rejected wording stays available. Do not infer permanent
+keep/kill lists or a cross-paper rule from a single choice. Advance to the next
+unreviewed sentence without an extra “keep going?” between sentences.
+
+### F. Check and confirm the paragraph
+
+Review the complete revised paragraph against its blueprint: main claim,
+support, opening/closing, first-use definitions and transition. Propose any
+needed fix and obtain a choice before applying it.
+
+<!-- sonder-command:prune -->
+```bash
+python3 -I "<learn-path>" prune "<db-path>"
+```
+
+Prune is upkeep, not an author choice; its successful CLI output is plain `ok`,
+not JSON. Explain what changed in the paragraph and ask whether to continue to
+the next, pause/save, or revisit wording/profile/blueprint. Do not start the next
+paragraph without the author's go-ahead.
 
 ## Resuming
 
-When `<paper-stem>-revision/` already exists: read `revision-log.md` to find the last **completed paragraph** and the next one to start, read `style-profile.md` to restore what you noted about the author, and **read `preference.db`** (`python3 -I "$LEARN" reshow <paper>-revision/preference.db`) to restore what the author's choices actually taught. Re-read the blueprint so you know what this paper is meant to be, then re-read `working/` for current context. Continue from the first unreviewed sentence of the next paragraph. Confirm the resume point with the author before diving back in.
+Run the installation check first. Read the working text, blueprint, profile,
+revision log and saved candidate decisions. Find the first unresolved sentence,
+including one inside a partly completed paragraph; a paragraph counter alone
+is not enough. Confirm the resume point before presenting the next choice.
 
-## Finishing
+After resolving this saved workspace, run step 0's `learning-policy ... ensure-adaptive`
+command before ranking or feedback. Preserve an explicit legacy policy and all
+existing backend settings; never enable learning by replaying old decisions.
 
-When the author stops or you reach the end:
+For a saved approved decision with an incomplete edit, receipt or log, reconcile
+the entire original span and surrounding boundaries, then retry its complete
+file with the same ID, context, source mode, annotations and learning intent.
+Do not reconstruct context from today's blueprint or treat a found substring as
+proof that a merged span was fully applied. Read edit-scope guidance for merges
+and redecisions. Pending files without `chosen` remain pending regardless of rank.
 
-- Summarize what changed: paragraphs reviewed, sentences edited and kept. Note any structural change made in the blueprint.
-- Show a diff between `original/` and `working/` so they see the whole revision at a glance (`diff -u original/<file> working/<file>`, or a section summary if it's large).
-- The edited paper is `working/<file>`; the backup is untouched in `original/`. Leave it to the author to copy `working/` back over their source — don't overwrite their original file yourself.
+Recover old call context from a saved receipt, command or reliable log. If it is
+missing, report the uncertainty instead of guessing. Do not give completed legacy
+decisions new IDs and replay them. Never rewrite an approved old payload to add
+new annotations, scopes or format fields. An existing receipt conflicting with
+requested intent needs reconciliation, not a new ID or removed opt-out. A clearly
+logged old intentional skip with a saved ID and no feedback may be finalized as
+an editorial-only decision; see the preference guide for that narrow recovery.
+
+Use actual nearest/rank calls for the pending sentence. `reshow` below is only
+legacy label history, not the phrase/structure memory query.
+
+## Finish or pause
+
+Summarize reviewed paragraphs and edited/kept sentences, including agreed
+structural changes. Show the diff from `original/` to `working/` or a section
+summary when large. Point to the edited working file and preserved backup; let
+the author choose whether to copy it over the source. Leave the revision state
+ready to resume.
+
+## Optional transport and legacy commands
+
+If Sonder MCP tools are available, read the MCP guide and verify `sonder_status`
+matches this workspace/database/installation before using it. Prefer a matching
+server for bind/nearest/rank/choice/prune; otherwise use CLI. The same saved
+envelopes, approval and IDs apply across transports. A timeout/reconnect does
+not create a new decision, and the server does not edit the manuscript.
+
+The following commands support explicit imports, legacy callers or requested
+configuration. They are not extra steps after ordinary `choice-file` feedback.
+For imported Markdown text append `--text-format markdown` to `store-file`.
+
+<!-- sonder-command:store -->
+```bash
+python3 -I "<learn-path>" store-file "<db-path>" author "<sentence-file>"
+```
+
+<!-- sonder-command:record -->
+```bash
+python3 -I "<learn-path>" record "<db-path>" "<section>" "<role>" "<version>"
+```
+
+<!-- sonder-command:bias -->
+```bash
+python3 -I "<learn-path>" bias "<db-path>" "<section>" "<role>" Light Medium Bold "Keep original"
+```
+
+<!-- sonder-command:resume -->
+```bash
+python3 -I "<learn-path>" reshow "<db-path>"
+```
+
+Configure a backend only when intended; this example is not permission to reset
+an existing `off` or model configuration. Read runtime setup before a change.
+
+<!-- sonder-command:syntax -->
+```bash
+python3 -I "<learn-path>" syntax-backend "<db-path>" heuristic
+```

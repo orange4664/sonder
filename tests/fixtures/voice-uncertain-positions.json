@@ -1,0 +1,1426 @@
+{
+  "provenance": "Frozen S001 from an independent new-writing trial using Sonder, 2026-10-28. Nested 标记/计算 voices remain unknown; target 读取/保存 positions are explicit. Synthetic prose, not real author feedback.",
+  "source_file": "synthetic-audit/sonder-predicate-heads-20261028/writer/paper-revision/candidate-inputs/S001-candidates-v1.json",
+  "data": {
+    "candidates": [
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "e7dc682d88fbf4871cfef731ce161ed27f52a67ac208774b3776d7cade7cbe5c",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 40,
+                  "start": 0,
+                  "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存下来。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 4,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "patient",
+                  "start": 0,
+                  "text": "样品"
+                },
+                {
+                  "end": 4,
+                  "role": "event",
+                  "start": 2,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取"
+            },
+            {
+              "end": 37,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 37,
+                  "role": "head",
+                  "start": 35,
+                  "text": "保存"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存"
+            },
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "agent",
+                  "start": 6,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 6,
+              "text": "检测程序读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 39,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 35,
+                  "role": "patient",
+                  "start": 26,
+                  "text": "此前计算的校准系数"
+                },
+                {
+                  "end": 37,
+                  "role": "event",
+                  "start": 35,
+                  "text": "保存"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并将此前计算的校准系数保存下来",
+              "voice": "active"
+            },
+            {
+              "end": 30,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 30,
+                  "role": "event",
+                  "start": 28,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 26,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 35,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "dependent",
+                  "start": 26,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 35,
+                  "role": "head",
+                  "start": 31,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 26,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "e7dc682d88fbf4871cfef731ce161ed27f52a67ac208774b3776d7cade7cbe5c",
+          "version": 6
+        },
+        "id": "front",
+        "label": "状语前置",
+        "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存下来。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "b4785db3b817b38130ffa1c0e64128120bf4697d33c83cd3ce8ace3bfbd37f63",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 37,
+                  "start": 0,
+                  "text": "检测程序在样品冷却后读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 4,
+                  "role": "agent",
+                  "start": 0,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "检测程序在样品冷却后读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "dependent",
+                  "start": 4,
+                  "text": "在样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 4,
+              "text": "在样品冷却后读取"
+            },
+            {
+              "end": 27,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "dependent",
+                  "start": 4,
+                  "text": "在样品冷却后"
+                },
+                {
+                  "end": 27,
+                  "role": "head",
+                  "start": 25,
+                  "text": "保存"
+                }
+              ],
+              "start": 4,
+              "text": "在样品冷却后读取已标记为“忽略”的记录，并保存"
+            },
+            {
+              "end": 9,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 7,
+                  "role": "patient",
+                  "start": 5,
+                  "text": "样品"
+                },
+                {
+                  "end": 9,
+                  "role": "event",
+                  "start": 7,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 5,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 36,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 27,
+                  "role": "event",
+                  "start": 25,
+                  "text": "保存"
+                },
+                {
+                  "end": 36,
+                  "role": "patient",
+                  "start": 27,
+                  "text": "此前计算的校准系数"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并保存此前计算的校准系数",
+              "voice": "active"
+            },
+            {
+              "end": 31,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "event",
+                  "start": 29,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 27,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 36,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 32,
+                  "role": "dependent",
+                  "start": 27,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 36,
+                  "role": "head",
+                  "start": 32,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 27,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "b4785db3b817b38130ffa1c0e64128120bf4697d33c83cd3ce8ace3bfbd37f63",
+          "version": 6
+        },
+        "id": "embedded",
+        "label": "主语后嵌入",
+        "text": "检测程序在样品冷却后读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "36cbcc24830677a29113d6d071218390745c3d9af2e4f697ec055ec3caee5ce5",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 37,
+                  "start": 0,
+                  "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 4,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "patient",
+                  "start": 0,
+                  "text": "样品"
+                },
+                {
+                  "end": 4,
+                  "role": "event",
+                  "start": 2,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取"
+            },
+            {
+              "end": 27,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 27,
+                  "role": "head",
+                  "start": 25,
+                  "text": "保存"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存"
+            },
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "agent",
+                  "start": 6,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 6,
+              "text": "检测程序读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 36,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 27,
+                  "role": "event",
+                  "start": 25,
+                  "text": "保存"
+                },
+                {
+                  "end": 36,
+                  "role": "patient",
+                  "start": 27,
+                  "text": "此前计算的校准系数"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并保存此前计算的校准系数",
+              "voice": "active"
+            },
+            {
+              "end": 31,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "event",
+                  "start": 29,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 27,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 36,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 32,
+                  "role": "dependent",
+                  "start": 27,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 36,
+                  "role": "head",
+                  "start": 32,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 27,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "36cbcc24830677a29113d6d071218390745c3d9af2e4f697ec055ec3caee5ce5",
+          "version": 6
+        },
+        "id": "keep",
+        "label": "Keep original",
+        "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+      }
+    ],
+    "edit_scope": {
+      "before_text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。",
+      "keep_original_id": "keep",
+      "sentence_ids": [
+        "S001"
+      ]
+    },
+    "learning_context": {
+      "role": "detail",
+      "section": "methods"
+    },
+    "round_id": "11da9a80-a9c8-49b5-a002-dc82d870f9c7",
+    "text_format": "markdown"
+  },
+  "historical_input": {
+    "candidates": [
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "e7dc682d88fbf4871cfef731ce161ed27f52a67ac208774b3776d7cade7cbe5c",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 40,
+                  "start": 0,
+                  "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存下来。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 4,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "patient",
+                  "start": 0,
+                  "text": "样品"
+                },
+                {
+                  "end": 4,
+                  "role": "event",
+                  "start": 2,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取"
+            },
+            {
+              "end": 37,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 37,
+                  "role": "head",
+                  "start": 35,
+                  "text": "保存"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存"
+            },
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "agent",
+                  "start": 6,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 6,
+              "text": "检测程序读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 39,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 35,
+                  "role": "patient",
+                  "start": 26,
+                  "text": "此前计算的校准系数"
+                },
+                {
+                  "end": 37,
+                  "role": "event",
+                  "start": 35,
+                  "text": "保存"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并将此前计算的校准系数保存下来",
+              "voice": "active"
+            },
+            {
+              "end": 30,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 30,
+                  "role": "event",
+                  "start": 28,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 26,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 35,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "dependent",
+                  "start": 26,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 35,
+                  "role": "head",
+                  "start": 31,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 26,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "e7dc682d88fbf4871cfef731ce161ed27f52a67ac208774b3776d7cade7cbe5c",
+          "version": 6
+        },
+        "id": "front",
+        "label": "状语前置",
+        "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并将此前计算的校准系数保存下来。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "b4785db3b817b38130ffa1c0e64128120bf4697d33c83cd3ce8ace3bfbd37f63",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 37,
+                  "start": 0,
+                  "text": "检测程序在样品冷却后读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 4,
+                  "role": "agent",
+                  "start": 0,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "检测程序在样品冷却后读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "dependent",
+                  "start": 4,
+                  "text": "在样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 4,
+              "text": "在样品冷却后读取"
+            },
+            {
+              "end": 27,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "dependent",
+                  "start": 4,
+                  "text": "在样品冷却后"
+                },
+                {
+                  "end": 27,
+                  "role": "head",
+                  "start": 25,
+                  "text": "保存"
+                }
+              ],
+              "start": 4,
+              "text": "在样品冷却后读取已标记为“忽略”的记录，并保存"
+            },
+            {
+              "end": 9,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 7,
+                  "role": "patient",
+                  "start": 5,
+                  "text": "样品"
+                },
+                {
+                  "end": 9,
+                  "role": "event",
+                  "start": 7,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 5,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 36,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 27,
+                  "role": "event",
+                  "start": 25,
+                  "text": "保存"
+                },
+                {
+                  "end": 36,
+                  "role": "patient",
+                  "start": 27,
+                  "text": "此前计算的校准系数"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并保存此前计算的校准系数",
+              "voice": "active"
+            },
+            {
+              "end": 31,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "event",
+                  "start": 29,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 27,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 36,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 32,
+                  "role": "dependent",
+                  "start": 27,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 36,
+                  "role": "head",
+                  "start": 32,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 27,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "b4785db3b817b38130ffa1c0e64128120bf4697d33c83cd3ce8ace3bfbd37f63",
+          "version": 6
+        },
+        "id": "embedded",
+        "label": "主语后嵌入",
+        "text": "检测程序在样品冷却后读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+      },
+      {
+        "analysis": {
+          "source": "writing-model",
+          "text_sha256": "36cbcc24830677a29113d6d071218390745c3d9af2e4f697ec055ec3caee5ce5",
+          "units": [
+            {
+              "certainty": "asserted",
+              "move": "method",
+              "parts": [
+                {
+                  "end": 37,
+                  "start": 0,
+                  "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+                }
+              ],
+              "polarity": "affirmative"
+            }
+          ],
+          "version": 2
+        },
+        "grammar": {
+          "frames": [
+            {
+              "end": 4,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 2,
+                  "role": "patient",
+                  "start": 0,
+                  "text": "样品"
+                },
+                {
+                  "end": 4,
+                  "role": "event",
+                  "start": 2,
+                  "text": "冷却"
+                }
+              ],
+              "slots_complete": true,
+              "start": 0,
+              "text": "样品冷却",
+              "voice": "nonagentive"
+            },
+            {
+              "end": 12,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 12,
+                  "role": "head",
+                  "start": 10,
+                  "text": "读取"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取"
+            },
+            {
+              "end": 27,
+              "kind": "link",
+              "relation": "temporal",
+              "slots": [
+                {
+                  "end": 5,
+                  "role": "dependent",
+                  "start": 0,
+                  "text": "样品冷却后"
+                },
+                {
+                  "end": 27,
+                  "role": "head",
+                  "start": 25,
+                  "text": "保存"
+                }
+              ],
+              "start": 0,
+              "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存"
+            },
+            {
+              "end": 23,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 10,
+                  "role": "agent",
+                  "start": 6,
+                  "text": "检测程序"
+                },
+                {
+                  "end": 12,
+                  "role": "event",
+                  "start": 10,
+                  "text": "读取"
+                },
+                {
+                  "end": 23,
+                  "role": "patient",
+                  "start": 12,
+                  "text": "已标记为“忽略”的记录"
+                }
+              ],
+              "slots_complete": true,
+              "start": 6,
+              "text": "检测程序读取已标记为“忽略”的记录",
+              "voice": "active"
+            },
+            {
+              "end": 20,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 15,
+                  "role": "event",
+                  "start": 13,
+                  "text": "标记"
+                },
+                {
+                  "end": 20,
+                  "role": "complement",
+                  "start": 16,
+                  "text": "“忽略”"
+                }
+              ],
+              "slots_complete": true,
+              "start": 12,
+              "text": "已标记为“忽略”",
+              "voice": "unknown"
+            },
+            {
+              "end": 23,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 21,
+                  "role": "dependent",
+                  "start": 12,
+                  "text": "已标记为“忽略”的"
+                },
+                {
+                  "end": 23,
+                  "role": "head",
+                  "start": 21,
+                  "text": "记录"
+                }
+              ],
+              "start": 12,
+              "text": "已标记为“忽略”的记录"
+            },
+            {
+              "end": 36,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 27,
+                  "role": "event",
+                  "start": 25,
+                  "text": "保存"
+                },
+                {
+                  "end": 36,
+                  "role": "patient",
+                  "start": 27,
+                  "text": "此前计算的校准系数"
+                }
+              ],
+              "slots_complete": true,
+              "start": 24,
+              "text": "并保存此前计算的校准系数",
+              "voice": "active"
+            },
+            {
+              "end": 31,
+              "form": "verbal",
+              "kind": "expression",
+              "slots": [
+                {
+                  "end": 31,
+                  "role": "event",
+                  "start": 29,
+                  "text": "计算"
+                }
+              ],
+              "slots_complete": true,
+              "start": 27,
+              "text": "此前计算",
+              "voice": "unknown"
+            },
+            {
+              "end": 36,
+              "kind": "link",
+              "relation": "relative",
+              "slots": [
+                {
+                  "end": 32,
+                  "role": "dependent",
+                  "start": 27,
+                  "text": "此前计算的"
+                },
+                {
+                  "end": 36,
+                  "role": "head",
+                  "start": 32,
+                  "text": "校准系数"
+                }
+              ],
+              "start": 27,
+              "text": "此前计算的校准系数"
+            }
+          ],
+          "source": "writing-model",
+          "text_sha256": "36cbcc24830677a29113d6d071218390745c3d9af2e4f697ec055ec3caee5ce5",
+          "version": 6
+        },
+        "id": "keep",
+        "label": "Keep original",
+        "text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。"
+      }
+    ],
+    "edit_scope": {
+      "before_text": "样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。",
+      "keep_original_id": "keep",
+      "sentence_ids": [
+        "S001"
+      ]
+    },
+    "learning_context": {
+      "role": "detail",
+      "section": "methods"
+    },
+    "round_id": "historical-voice-only-position",
+    "text_format": "markdown",
+    "chosen": "embedded",
+    "author_owned": true
+  },
+  "historical_event": {
+    "round_id": "historical-voice-only-position",
+    "payload_hash": "cf9fe8ba4bbdcfc53e1387825e1ca8971b35945500d22e65618d71b23d307c5a",
+    "result_json": "{\"chosen\": \"embedded\", \"label\": \"主语后嵌入\", \"feedback_applied\": true, \"learning_context\": {\"section\": \"methods\", \"role\": \"detail\"}, \"features\": 54, \"syntax_features\": 23, \"syntax_backend\": \"heuristic\", \"heuristic_template_active\": false, \"syntax_requested_backend\": \"heuristic\", \"syntax_fallback_reason\": null, \"syntax_fallbacks\": {}, \"base_syntax_negative_feedback\": true, \"syntax_model_version\": null, \"syntax_model_fingerprint\": null, \"syntax_model_fingerprints\": {\"embedded\": null, \"front\": null, \"keep\": null}, \"author_exemplar\": true, \"round_id\": \"historical-voice-only-position\", \"idempotent\": true, \"replayed\": false, \"analysis_features\": 2, \"analysis_input_version\": 2, \"analysis_feature_capacity\": 2, \"analysis_topology_features\": 0, \"analysis_topology_capacity\": 0, \"analysis_topology_feature_version\": \"v1\", \"analysis_source\": \"writing-model\", \"analysis_feature_version\": \"v2\", \"analysis_status\": \"complete\", \"analysis_negative_feedback\": true, \"analysis_topology_negative_feedback\": true, \"grammar_features\": 19, \"grammar_source\": \"writing-model\", \"grammar_input_version\": 6, \"grammar_feature_version\": \"v1\", \"grammar_status\": \"partial\", \"grammar_negative_feedback\": false, \"argument_shape_negative_feedback\": false, \"adjunct_position_negative_feedback\": false, \"link_pair_negative_feedback\": false, \"text_format\": \"markdown\", \"edit_scope\": {\"before_text\": \"样品冷却后，检测程序读取已标记为“忽略”的记录，并保存此前计算的校准系数。\", \"keep_original_id\": \"keep\", \"sentence_ids\": [\"S001\"]}, \"adaptive\": {\"policy\": \"adaptive-v1\", \"scoring_version\": 3, \"accepted_features\": 77, \"profile_mass\": 1.0, \"comparative_differences\": 2, \"contrast_feature_counts\": {\"phrase\": 68, \"base\": 4, \"analysis\": 0, \"grammar\": 0}, \"evidence_kinds\": [\"accepted_text_observation\", \"comparative_preference\"]}}",
+    "created": "2026-10-28T08:00:00+00:00"
+  }
+}
